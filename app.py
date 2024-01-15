@@ -40,7 +40,7 @@ def main():
         plt.show()
 
         #Summary Table
-        tb_upload = pd.read_excel(outputFolder + 'Performance.xlsx', sheet_name='Summary', header=1)
+        tb_upload = pd.read_excel(uploaded_file, sheet_name='Summary', header=1)
         tb = tb_upload.iloc[10:19, 0:5]
         tb = tb.reset_index(drop=True)
         tb = tb.rename(columns={'Dates':'Metrics'})
