@@ -37,7 +37,7 @@ def main():
         plt.grid(True)
 
         # Show the plot
-        plt.show()
+        st.pyplot(plt.gcf())
 
         #Summary Table
         tb_upload = pd.read_excel(uploaded_file, sheet_name='Summary', header=1)
