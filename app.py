@@ -124,7 +124,7 @@ def main():
     postions_calc['Gain $'] = postions_calc['Value'] - postions_calc['Cost']
     postions_calc['Gain %'] = postions_calc['Gain $']/postions_calc['Cost']
 
-    %%time
+    
     data_main = pdr.get_data_yahoo(tickers_list, start=analysis_start_date, end=analysis_end_date_plusone).dropna(axis=0,how='all') #switch this date for different cohorts
     data = data_main['Close'].T
     data_adjusted = data_main['Adj Close'].T
