@@ -86,9 +86,9 @@ def main():
     transactions['QuantXAction'] = transactions.Quantity * transactions.Action_Postion #Quantity X Action
 
     postions_calc = pd.DataFrame()
-
+    transactions = transactions.drop('Date', axis=1)
     for i in teams:
-        a = pd.DataFrame(transactions.groupby(['Group','Security']).sum())
+        a = pd.DataFrame(transactions.groupby(['Group','Security']).sum().loc[i]['QuantXAction'])
         #a['Group'] = i
         #a = a.reset_index()
         #a = a[['Group','Security','QuantXAction']]
