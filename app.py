@@ -87,7 +87,6 @@ def main():
 
     postions_calc = pd.DataFrame()
 
-    """
     for i in teams:
         a = pd.DataFrame(transactions.groupby(['Group','Security']).sum().loc[i]['QuantXAction'])
         a['Group'] = i
@@ -155,7 +154,7 @@ def main():
     ax.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
 
     st.pyplot(plt.gcf())
-    """
+    
 
 if __name__ == "__main__":
     main()
