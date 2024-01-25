@@ -93,7 +93,7 @@ def main():
         a = a.reset_index()
         a = a[['Group','Security','QuantXAction']]
         a = a[a.Security!='Cash']
-        postions_calc= postions_calc.append(a)
+        postions_calc = pd.concat([postions_calc, a], ignore_index=True)
     
 
     transactions_filter_buy= transactions[transactions.Action=='Buy'][['Group','Security','Price']]
