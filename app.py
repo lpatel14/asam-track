@@ -88,12 +88,12 @@ def main():
     postions_calc = pd.DataFrame()
 
     for i in teams:
-        a = pd.DataFrame(transactions.groupby(['Group','Security']).sum().loc[i]['QuantXAction'])
+        a = pd.DataFrame(transactions.groupby(['Group','Security']).sum())
         #a['Group'] = i
         #a = a.reset_index()
         #a = a[['Group','Security','QuantXAction']]
         #a = a[a.Security!='Cash']
-        postions_calc= postions_calc.append(a)
+        #postions_calc= postions_calc.append(a)
     
     """
     transactions_filter_buy= transactions[transactions.Action=='Buy'][['Group','Security','Price']]
