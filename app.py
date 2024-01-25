@@ -89,11 +89,11 @@ def main():
     transactions = transactions.drop('Date', axis=1)
     for i in teams:
         a = pd.DataFrame(transactions.groupby(['Group','Security']).sum().loc[i]['QuantXAction'])
-        #a['Group'] = i
-        #a = a.reset_index()
-        #a = a[['Group','Security','QuantXAction']]
-        #a = a[a.Security!='Cash']
-        #postions_calc= postions_calc.append(a)
+        a['Group'] = i
+        a = a.reset_index()
+        a = a[['Group','Security','QuantXAction']]
+        a = a[a.Security!='Cash']
+        postions_calc= postions_calc.append(a)
     
 
     transactions_filter_buy= transactions[transactions.Action=='Buy'][['Group','Security','Price']]
@@ -116,7 +116,7 @@ def main():
     daily_data = yf.download(tickers_list , start=analysis_end_date ,period= '1d' ,end= analysis_end_date_plusone )['Close'].dropna(axis=0,how='all')
     daily_data_transpose = daily_data.transpose().reset_index().rename(columns={'index':'Tickers'})
 
-    postions_calc =postions_calc.merge(daily_data_transpose,left_on='Tickers',right_on='Tickers', how ='left')
+    postions_calc = postions_calc.merge(daily_data_transpose,left_on='Tickers',right_on='Tickers', how ='left')
 
     postions_calc.columns = ['Group','Tickers','Shares','Purchase','Cost','Price']
 
