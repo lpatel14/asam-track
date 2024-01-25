@@ -67,7 +67,7 @@ def main():
     #Change dynamic values
     analysis_start_date = pd.to_datetime('2023-12-29', format='%Y-%m-%d')#the day first stock was bought 
     analysis_end_date = most_recent_trading_day #should be a trading day
-    analysis_end_date_plusone = '2023-01-24' #pd.to_datetime(most_recent_trading_day + pd.Timedelta(days=1), format='%Y-%m-%d') #just add one to the above mentioned date, need not be a working day
+    analysis_end_date_plusone = most_recent_trading_day + pd.Timedelta(days=1) #just add one to the above mentioned date, need not be a working day
     rf = 0.01/100*252 #riskfree-- just add current daily percent before the slash
     bench_list = ['SP500','DJI','Nasdaq','Russell']
     prtfolio = bench_list[3] #switch no. to change benchmark, Ex: selecting 3 gives you the Russell 2000
@@ -104,7 +104,7 @@ def main():
     postions_calc = postions_calc[postions_calc.Shares>0]
 
     postions_calc['Cost'] = postions_calc['Shares']* postions_calc['Purchase']
-
+    """
     total_cost = postions_calc.groupby(['Group']).sum()
     ASAM_Total_cash= total_cost.Cost.sum()
     total_cost = pd.DataFrame(total_cost['Cost'])
@@ -155,7 +155,7 @@ def main():
     ax.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
 
     st.pyplot(plt.gcf())
-
+    """
 
 if __name__ == "__main__":
     main()
