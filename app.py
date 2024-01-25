@@ -87,7 +87,7 @@ def main():
 
     postions_calc = pd.DataFrame()
 
-
+    """
     for i in teams:
         a = pd.DataFrame(transactions.groupby(['Group','Security']).sum().loc[i]['QuantXAction'])
         a['Group'] = i
@@ -104,7 +104,7 @@ def main():
     postions_calc = postions_calc[postions_calc.Shares>0]
 
     postions_calc['Cost'] = postions_calc['Shares']* postions_calc['Purchase']
-    """
+    
     total_cost = postions_calc.groupby(['Group']).sum()
     ASAM_Total_cash= total_cost.Cost.sum()
     total_cost = pd.DataFrame(total_cost['Cost'])
