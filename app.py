@@ -94,7 +94,7 @@ def main():
         a = a[['Group','Security','QuantXAction']]
         a = a[a.Security!='Cash']
         postions_calc= postions_calc.append(a)
-
+    """
     transactions_filter_buy= transactions[transactions.Action=='Buy'][['Group','Security','Price']]
 
     postions_calc = postions_calc.merge(transactions_filter_buy,how='right')[['Group','Security','QuantXAction','Price']]
@@ -154,7 +154,7 @@ def main():
     ax.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
 
     st.pyplot(plt.gcf())
-    
+    """
 
 if __name__ == "__main__":
     main()
