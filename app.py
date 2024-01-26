@@ -128,6 +128,7 @@ def main():
     
     data_main = pdr.get_data_yahoo(tickers_list, start=analysis_start_date, end=analysis_end_date_plusone).dropna(axis=0,how='all') #switch this date for different cohorts
     data = data_main['Close']
+    st.dataframe(data)
     data['Date'] = pd.to_datetime(data['Date'])
     data['Date'] = data['Date'].dt.date
     data_adjusted = data_main['Adj Close'].T
