@@ -128,12 +128,11 @@ def main():
     
     data_main = pdr.get_data_yahoo(tickers_list, start=analysis_start_date, end=analysis_end_date_plusone).dropna(axis=0,how='all') #switch this date for different cohorts
     data = data_main['Close']
-    st.dataframe(data_main)
     #data['new'] = pd.to_datetime(data['Date'])
     data.index = data.index.date
     #data_adjusted = data_main['Adj Close'].T
     ##Loading all stock data gonna take 3 mins to run 
-    #st.dataframe(data)
+    st.dataframe(data)
     #data = data.T
     #data = data.T[data.columns>=transactions[transactions.Action=='Buy'].Date.max()].T
     """
