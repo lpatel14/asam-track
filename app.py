@@ -146,7 +146,7 @@ def main():
     #Graph total value
     display_Total_Value = Total_Value.groupby('Group').sum()
     display_Total_Value = display_Total_Value.drop('Shares', axis=1)
-    #display_Total_Value.set_index('Group', inplace=True)
+    display_Total_Value.set_index('Group', inplace=True)
     ax = display_Total_Value.T.plot(kind='line', marker='o')
 
     ax.set_xlabel('Date')
