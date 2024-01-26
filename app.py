@@ -131,7 +131,7 @@ def main():
     
     data.index = data.index.date
     data.reset_index(inplace=True)
-    data = data.rename(columns={'index':'Date'})
+    data.rename(columns={'index':'Date'})
     data_adjusted = data_main['Adj Close'].T
     ##Loading all stock data gonna take 3 mins to run 
     st.dataframe(data)
