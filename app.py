@@ -131,7 +131,7 @@ def main():
     data_adjusted = data_main['Adj Close'].T
     ##Loading all stock data gonna take 3 mins to run 
     st.dataframe(data)
-    print(transactions[transactions.Action=='Buy'].Date.max())
+    st.write(transactions[transactions.Action=='Buy'].Date.max())
     data = data.T[data.columns>=transactions[transactions.Action=='Buy'].Date.max()].T
     
     """
