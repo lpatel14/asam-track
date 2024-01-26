@@ -65,9 +65,9 @@ def main():
     most_recent_trading_day = data.index[0]
 
     #Change dynamic values
-    analysis_start_date = pd.to_datetime('2023-12-29', format='%Y-%m-%d')#the day first stock was bought 
-    analysis_end_date = most_recent_trading_day #should be a trading day
-    analysis_end_date_plusone = most_recent_trading_day + pd.Timedelta(days=1) #just add one to the above mentioned date, need not be a working day
+    analysis_start_date = pd.to_datetime('2023-12-29', format='%Y-%m-%d').date() #the day first stock was bought 
+    analysis_end_date = most_recent_trading_day.date() #should be a trading day
+    analysis_end_date_plusone = (most_recent_trading_day + pd.Timedelta(days=1)).date() #just add one to the above mentioned date, need not be a working day
     rf = 0.01/100*252 #riskfree-- just add current daily percent before the slash
     bench_list = ['SP500','DJI','Nasdaq','Russell']
     prtfolio = bench_list[3] #switch no. to change benchmark, Ex: selecting 3 gives you the Russell 2000
