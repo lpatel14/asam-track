@@ -130,7 +130,7 @@ def main():
     data = data_main['Close']
     data_adjusted = data_main['Adj Close'].T
     ##Loading all stock data gonna take 3 mins to run 
-    
+    sat.dateframe(transactions)
     data = data.T[data.columns>=transactions[transactions.Action=='Buy'].Date.max()].T
     
     """
