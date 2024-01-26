@@ -130,6 +130,7 @@ def main():
     data = data_main['Close']
     
     data.index = data.index.date
+    data.reset_index(inplace=True)
     data_adjusted = data_main['Adj Close'].T
     ##Loading all stock data gonna take 3 mins to run 
     st.dataframe(data)
