@@ -130,7 +130,7 @@ def main():
     data = data_main['Close']
     st.dataframe(data_main)
     #data['new'] = pd.to_datetime(data['Date'])
-    #data['Date'] = data['Date'].dt.date
+    data.index = data.index.date
     #data_adjusted = data_main['Adj Close'].T
     ##Loading all stock data gonna take 3 mins to run 
     #st.dataframe(data)
