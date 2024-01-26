@@ -86,9 +86,9 @@ def main():
     transactions['QuantXAction'] = transactions.Quantity * transactions.Action_Postion #Quantity X Action
 
     postions_calc = pd.DataFrame()
-    transactions = transactions.drop('Date', axis=1)
+    transactionsNoDate = transactions.drop('Date', axis=1)
     for i in teams:
-        a = pd.DataFrame(transactions.groupby(['Group','Security']).sum().loc[i]['QuantXAction'])
+        a = pd.DataFrame(transactionsNoDate.groupby(['Group','Security']).sum().loc[i]['QuantXAction'])
         a['Group'] = i
         a = a.reset_index()
         a = a[['Group','Security','QuantXAction']]
@@ -128,13 +128,9 @@ def main():
     
     data_main = pdr.get_data_yahoo(tickers_list, start=analysis_start_date, end=analysis_end_date_plusone).dropna(axis=0,how='all') #switch this date for different cohorts
     data = data_main['Close']
-    
-    data.index = data.index.date
-    data['Date'] = data.index
-    data.reset_index(drop=True, inplace=True)
     data_adjusted = data_main['Adj Close'].T
     ##Loading all stock data gonna take 3 mins to run 
-    st.dataframe(transactions[transactions.Action=='Buy'])
+    
     data = data.T[data.columns>=transactions[transactions.Action=='Buy'].Date.max()].T
     
     """
