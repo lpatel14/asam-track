@@ -104,7 +104,7 @@ def main():
     Total_Value.iloc[:,3:] = Total_Value_sliced
 
     # Apply pct_change() along the rows (now representing dates)
-    daily_returns = Total_Value.drop(['Group','Shares'], axis=1).transpose()
+    daily_returns = Total_Value.drop(['Group','Shares'], axis=1).set_index('Tickers', inplace=True).transpose()
     st.dataframe(daily_returns)
     """
     daily_returns_T = daily_returns.drop(daily_returns.index[0]).T
