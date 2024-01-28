@@ -113,11 +113,12 @@ def main():
     ax_value.set_title('Portfolio Value')
     ax_value.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
 
+    st.write(ax_value)
+
     # Apply pct_change() along the rows (now representing dates)
     daily_returns = Total_Value.drop(['Group','Shares'], axis=1)
     daily_returns = daily_returns.set_index('Tickers', inplace=False)
     daily_returns = daily_returns.T.pct_change()
-    #st.dataframe(daily_returns)
     
     daily_returns_T = daily_returns.drop(daily_returns.index[0]).T
     daily_returns_T['Total_Ret'] = daily_returns_T.apply(lambda row: (1 + row).prod() - 1, axis=1)
@@ -127,8 +128,6 @@ def main():
     daily_returns.drop_duplicates()
 
     tot_transactions = transactions.drop(['Date'], axis=1).groupby('Group').sum()['Total']
-    st.dataframe(tot_transactions)
-    st.dataframe(display_Total_Value)
     
     merged_df = display_Total_Value.merge(tot_transactions, how='left', left_index=True, right_index=True)
     date_columns = merged_df.drop(columns=['Total'])
