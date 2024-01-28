@@ -117,6 +117,8 @@ def main():
     daily_returns.drop_duplicates()
 
     tot_transactions = transactions.drop(['Date'], axis=1).groupby('Group').sum()['Total']
+    st.dataframe(tot_transactions)
+    """
     merged_df = display_Total_Value.merge(tot_transactions, how='left', left_index=True, right_index=True)
     date_columns = merged_df.drop(columns=['Total'])
     simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
@@ -140,6 +142,6 @@ def main():
     ax_return.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
 
     st.pyplot(plt.gcf())
-    
+    """
 if __name__ == "__main__":
     main()
