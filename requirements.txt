@@ -6,3 +6,4 @@ openpyxl
 yfinance
 pandas_datareader
 statsmodels
+plotly

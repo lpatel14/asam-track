@@ -9,7 +9,9 @@ import datetime
 from pandas_datareader import data as pdr
 import warnings
 import statsmodels.api as sm
+import plotly.graph_objects as go
 yf.pdr_override()
+
 
 st.set_page_config(page_title="ASAM Tracker", layout="wide")
 
@@ -142,6 +144,15 @@ def main():
     ax_return.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
 
     st.pyplot(ax_return.figure)
+
+    temp = display_Total_Value.T
+    fig1 = go.Figure()
+    for column in temp.columns:
+        fig1.add_trace(go.Scatter(x=temp.index, y=temp[column], mode='lines+markers', name=column))
     
+    #fig1.add_trace(go.Scatter(x=, y=, mode='lines+markers', name='Portfolio Value'))
+    fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)')
+    st.plotly_chart(fig1)
+
 if __name__ == "__main__":
     main()
