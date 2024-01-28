@@ -103,6 +103,16 @@ def main():
     Total_Value_sliced  = Total_Value_sliced.T
     Total_Value.iloc[:,3:] = Total_Value_sliced
 
+    #Graph total value
+    display_Total_Value = Total_Value.groupby('Group').sum()
+    display_Total_Value = display_Total_Value.drop(['Shares','Tickers'], axis=1)
+    ax_value = display_Total_Value.T.plot(kind='line', marker='o')
+
+    ax_value.set_xlabel('Date')
+    ax_value.set_ylabel('Value')
+    ax_value.set_title('Portfolio Value')
+    ax_value.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
+
     # Apply pct_change() along the rows (now representing dates)
     daily_returns = Total_Value.drop(['Group','Shares'], axis=1)
     daily_returns = daily_returns.set_index('Tickers', inplace=False)
@@ -118,20 +128,11 @@ def main():
 
     tot_transactions = transactions.drop(['Date'], axis=1).groupby('Group').sum()['Total']
     st.dataframe(tot_transactions)
+    st.dataframe(display_Total_Value)
     """
     merged_df = display_Total_Value.merge(tot_transactions, how='left', left_index=True, right_index=True)
     date_columns = merged_df.drop(columns=['Total'])
     simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
-
-    #Graph total value
-    display_Total_Value = Total_Value.groupby('Group').sum()
-    display_Total_Value = display_Total_Value.drop(['Shares','Tickers'], axis=1)
-    ax_value = display_Total_Value.T.plot(kind='line', marker='o')
-
-    ax_value.set_xlabel('Date')
-    ax_value.set_ylabel('Value')
-    ax_value.set_title('Portfolio Value')
-    ax_value.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
 
     #Graph simple return
     ax_return = simple_return.T.plot(kind='line', marker='o')
