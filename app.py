@@ -113,7 +113,7 @@ def main():
     ax_value.set_title('Portfolio Value')
     ax_value.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
 
-    st.write(ax_value)
+    st.pyplot(ax_value.figure)
 
     # Apply pct_change() along the rows (now representing dates)
     daily_returns = Total_Value.drop(['Group','Shares'], axis=1)
