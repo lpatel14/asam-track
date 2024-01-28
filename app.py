@@ -108,14 +108,13 @@ def main():
     #Graph total value
     display_Total_Value = Total_Value.groupby('Group').sum()
     display_Total_Value = display_Total_Value.drop(['Shares','Tickers'], axis=1)
-    ax_value = display_Total_Value.T.plot(kind='line', marker='o')
-
-    ax_value.set_xlabel('Date')
-    ax_value.set_ylabel('Value')
-    ax_value.set_title('Portfolio Value')
-    ax_value.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
-
-    st.pyplot(ax_value.figure)
+    temp_value = display_Total_Value.T
+    fig1 = go.Figure()
+    for column in temp_value.columns:
+        fig1.add_trace(go.Scatter(x=temp_value.index, y=temp_value[column], mode='lines+markers', name=column))
+    
+    fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)', width=800, height=600)
+    st.plotly_chart(fig1)
 
     # Apply pct_change() along the rows (now representing dates)
     daily_returns = Total_Value.drop(['Group','Shares'], axis=1)
@@ -136,23 +135,13 @@ def main():
     simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
 
     #Graph simple return
-    ax_return = simple_return.T.plot(kind='line', marker='o')
-
-    ax_return.set_xlabel('Date')
-    ax_return.set_ylabel('Return (%)')
-    ax_return.set_title('Simple Return')
-    ax_return.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
-
-    st.pyplot(ax_return.figure)
-
-    temp = display_Total_Value.T
-    fig1 = go.Figure()
-    for column in temp.columns:
-        fig1.add_trace(go.Scatter(x=temp.index, y=temp[column], mode='lines+markers', name=column))
+    temp_return = simple_return.T
+    fig2 = go.Figure()
+    for column in temp_return.columns:
+        fig2.add_trace(go.Scatter(x=temp_return.index, y=temp_return[column], mode='lines+markers', name=column))
     
-    #fig1.add_trace(go.Scatter(x=, y=, mode='lines+markers', name='Portfolio Value'))
-    fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)')
-    st.plotly_chart(fig1)
+    fig2.update_layout(title='Simple Return', xaxis_title='Date', yaxis_title='Return (%)', width=800, height=600)
+    st.plotly_chart(fig2)
 
 if __name__ == "__main__":
     main()
