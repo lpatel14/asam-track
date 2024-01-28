@@ -113,7 +113,7 @@ def main():
     for column in temp_value.columns:
         fig1.add_trace(go.Scatter(x=temp_value.index, y=temp_value[column], mode='lines+markers', name=column))
     
-    fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)', width=1200, height=800)
+    fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)', width=1200, height=800, bordercolor='rgb(0,0,0)', borderwidth=2)
     st.plotly_chart(fig1)
 
     # Apply pct_change() along the rows (now representing dates)
@@ -140,7 +140,7 @@ def main():
     for column in temp_return.columns:
         fig2.add_trace(go.Scatter(x=temp_return.index, y=temp_return[column], mode='lines+markers', name=column))
     
-    fig2.update_layout(title='Simple Return', xaxis_title='Date', yaxis_title='Return (%)', width=1200, height=800)
+    fig2.update_layout(title='Simple Return', xaxis_title='Date', yaxis_title='Return (%)', width=1200, height=800, bordercolor='rgb(0,0,0)', borderwidth=2)
     st.plotly_chart(fig2)
 
 if __name__ == "__main__":
