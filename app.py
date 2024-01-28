@@ -105,7 +105,7 @@ def main():
 
     # Apply pct_change() along the rows (now representing dates)
     daily_returns = Total_Value.drop(['Group','Shares'], axis=1).transpose()
-    st.DataFrame(daily_returns)
+    st.dataframe(daily_returns)
     """
     daily_returns_T = daily_returns.drop(daily_returns.index[0]).T
     daily_returns_T['Total_Ret'] = daily_returns_T.apply(lambda row: (1 + row).prod() - 1, axis=1)
