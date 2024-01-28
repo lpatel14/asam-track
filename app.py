@@ -116,7 +116,7 @@ def main():
     daily_returns = pos_cols.merge(daily_returns_T,how='left',left_on=['Tickers'],right_index=True)
     daily_returns.drop_duplicates()
 
-    tot_transactions = transactions.groupby('Group').sum()['Total']
+    tot_transactions = transactions.drop(['Date'], axis=1).groupby('Group').sum()['Total']
     merged_df = display_Total_Value.merge(tot_transactions, how='left', left_index=True, right_index=True)
     date_columns = merged_df.drop(columns=['Total'])
     simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
