@@ -141,7 +141,7 @@ def main():
     ax_return.set_title('Simple Return')
     ax_return.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
 
-    st.pyplot(plt.gcf())
+    st.pyplot(ax_return.figure)
     
 if __name__ == "__main__":
     main()
