@@ -104,8 +104,9 @@ def main():
     Total_Value.iloc[:,3:] = Total_Value_sliced
 
     # Apply pct_change() along the rows (now representing dates)
-    daily_returns = Total_Value.drop(['Group','Shares'], axis=1).transpose().pct_change()
-
+    daily_returns = Total_Value.drop(['Group','Shares'], axis=1).transpose()
+    st.DataFrame(daily_returns)
+    """
     daily_returns_T = daily_returns.drop(daily_returns.index[0]).T
     daily_returns_T['Total_Ret'] = daily_returns_T.apply(lambda row: (1 + row).prod() - 1, axis=1)
 
@@ -137,6 +138,6 @@ def main():
     ax_return.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
 
     st.pyplot(plt.gcf())
-
+    """
 if __name__ == "__main__":
     main()
