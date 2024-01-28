@@ -115,5 +115,30 @@ def main():
 
     st.pyplot(plt.gcf())
 
+    # Apply pct_change() along the rows (now representing dates)
+    daily_returns = Total_Value.drop(['Group','Shares'], axis=1).transpose().pct_change()
+
+    daily_returns_T = daily_returns.drop(daily_returns.index[0]).T
+    daily_returns_T['Total_Ret'] = daily_returns_T.apply(lambda row: (1 + row).prod() - 1, axis=1)
+
+    pos_cols = postions_calc[['Group','Tickers','Shares']].copy()
+    daily_returns = pos_cols.merge(daily_returns_T,how='left',left_on=['Tickers'],right_index=True)
+    daily_returns.drop_duplicates()
+
+    tot_transactions = transactions.groupby('Group').sum()['Total']
+    merged_df = display_Total_Value.merge(tot_transactions, how='left', left_index=True, right_index=True)
+    date_columns = merged_df.drop(columns=['Total'])
+    simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
+
+    #Graph simple return
+    ax = simple_return.T.plot(kind='line', marker='o')
+
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Return (%)')
+    ax.set_title('Simple Return')
+    ax.legend(title='Group', loc='lower right', bbox_to_anchor=(1.3, 0.2))
+
+    st.pyplot(plt.gcf())
+
 if __name__ == "__main__":
     main()
