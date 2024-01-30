@@ -134,6 +134,8 @@ def main():
     date_columns = merged_df.drop(columns=['Total'])
     simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
 
+    st.dataframe(date_columns)
+
     #Graph simple return
     temp_return = simple_return.T
     fig2 = go.Figure()
