@@ -137,9 +137,9 @@ def main():
 
     result_df = pd.DataFrame(columns=merged_df.columns)
     merged_df.reset_index(drop=False, inplace=True)
+    st.dataframe(merged_df)
     for index, row in merged_df.iterrows():
         new_row = row.copy()
-        new_row[0] = row[0]
         for i in range(1, len(row)):
             new_row[i] = ((row[i] / row[i - 1])-1)*100
         result_df = pd.concat([result_df, new_row.to_frame().T], ignore_index=True)
