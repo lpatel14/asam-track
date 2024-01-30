@@ -136,16 +136,16 @@ def main():
     #simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
 
     result_df = pd.DataFrame(columns=merged_df.columns)
-    st.dataframe(result_df)
+    
     for index, row in merged_df.iterrows():
         new_row = row.copy()
         for i in range(1, len(row)):
             new_row[i] = ((row[i] / row[i - 1])-1)*100
         result_df = pd.concat([result_df, new_row.to_frame().T], ignore_index=True)
-        result_df.index = row.index
+        result_df.index = index
     
     simple_return = result_df.drop(columns=['Total'])
-    
+    st.dataframe(result_df)
 
     #Graph simple return
     temp_return = simple_return.T
