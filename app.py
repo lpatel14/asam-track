@@ -142,6 +142,7 @@ def main():
         new_row = row.copy()  # Create a copy of the row to store the result
         for i in range(1, len(row)):  # Start from the second column
             new_row[i] = row[i] / row[i - 1]  # Divide the current value by the previous value
+        
         result_df = result_df.append(new_row, ignore_index=True)
 
     st.dataframe(result_df)
