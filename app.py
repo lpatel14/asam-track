@@ -135,20 +135,17 @@ def main():
     #date_columns = merged_df.drop(columns=['Total'])
     #simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
 
-    def divide_previous(df):
-        prev_col = None
+    result_df = pd.DataFrame(columns=merged_df.columns)
 
-        for col in df.columns:
-            if col != 'Group':
-                if prev_col is not None:
-                    df[col] /= df[prev_col]
-                prev_col = col
-        
-        return df
-    
-    # Apply the function to each group
-    simple_return = merged_df.apply(divide_previous)
-    st.dataframe(simple_return)
+    # Iterate over each row
+    for index, row in merged_df.iterrows():
+        new_row = row.copy()  # Create a copy of the row to store the result
+        for i in range(1, len(row)):  # Start from the second column
+            new_row[i] = row[i] / row[i - 1]  # Divide the current value by the previous value
+        result_df = result_df.append(new_row, ignore_index=True)
+
+    st.dataframe(result_df)
+
     #Graph simple return
     temp_return = simple_return.T
     fig2 = go.Figure()
