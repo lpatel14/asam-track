@@ -136,7 +136,7 @@ def main():
     #simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
 
     result_df = pd.DataFrame(columns=merged_df.columns)
-    
+    st.dataframe(merged_df)
     for index, row in merged_df.iterrows():
         new_row = row.copy()
         for i in range(1, len(row)):
