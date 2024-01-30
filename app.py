@@ -140,7 +140,8 @@ def main():
     st.dataframe(merged_df)
     for index, row in merged_df.iterrows():
         new_row = row.copy()
-        for i in range(1, len(row)):
+        new_row[1] = row[1]
+        for i in range(2, len(row)):
             new_row[i] = ((row[i] / row[i - 1])-1)*100
         result_df = pd.concat([result_df, new_row.to_frame().T], ignore_index=True)
 
