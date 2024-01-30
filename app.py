@@ -141,8 +141,8 @@ def main():
     
     for index, row in merged_df.iterrows():
         new_row = row.copy()  # Create a copy of the row to store the result
-        for i in range(2, len(row)):  # Start from the second column
-            new_row[i] = row[i] / row[i - 1]  # Divide the current value by the previous value
+        for i in range(1, len(row)):  # Start from the second column
+            new_row[i] = ((row[i] / row[i - 1])-1)*100  # Divide the current value by the previous value
         result_df = pd.concat([result_df, new_row.to_frame().T], ignore_index=True)
     
     st.dataframe(result_df)
