@@ -145,6 +145,7 @@ def main():
             new_row[i] = ((row[i] / row[i - 1])-1)*100  # Divide the current value by the previous value
         result_df = pd.concat([result_df, new_row.to_frame().T], ignore_index=True)
     
+    simple_return = result_df.drop(columns=['Total'])
     st.dataframe(result_df)
 
     #Graph simple return
