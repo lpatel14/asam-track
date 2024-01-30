@@ -131,13 +131,10 @@ def main():
     tot_transactions = transactions.drop(['Date'], axis=1).groupby('Group').sum()['Total']
 
     merged_df = pd.merge(left=tot_transactions, right=display_Total_Value, how='left', on=['Group'])
-    #merged_df = tot_transactions.merge(display_Total_Value, how='left', left_index=True, right_index=True)
-    #date_columns = merged_df.drop(columns=['Total'])
-    #simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
 
     result_df = pd.DataFrame(columns=merged_df.columns)
     merged_df.reset_index(drop=False, inplace=True)
-    st.dataframe(merged_df)
+
     for index, row in merged_df.iterrows():
         new_row = row.copy()
         new_row[1] = row[1]
@@ -145,9 +142,8 @@ def main():
             new_row[i] = ((row[i] / row[i - 1])-1)*100
         result_df = pd.concat([result_df, new_row.to_frame().T], ignore_index=True)
 
-    st.dataframe(result_df)
     simple_return = result_df.drop(columns=['Total'])
-    
+    simple_return.set_index('Group', inplace=True)
 
     #Graph simple return
     temp_return = simple_return.T
