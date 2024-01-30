@@ -141,8 +141,8 @@ def main():
         new_row = row.copy()
         for i in range(1, len(row)):
             new_row[i] = ((row[i] / row[i - 1])-1)*100
-        new_row.index = [index]
         result_df = pd.concat([result_df, new_row.to_frame().T], ignore_index=True)
+        result_df.index = [index]
     
     simple_return = result_df.drop(columns=['Total'])
     st.dataframe(result_df)
