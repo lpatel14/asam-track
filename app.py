@@ -138,13 +138,14 @@ def main():
     result_df = pd.DataFrame(columns=merged_df.columns)
 
     # Iterate over each row
+    """
     for index, row in merged_df.iterrows():
         new_row = row.copy()  # Create a copy of the row to store the result
         for i in range(2, len(row)):  # Start from the second column
             new_row[i] = row[i] / row[i - 1]  # Divide the current value by the previous value
         
         result_df = result_df.append(new_row, ignore_index=True)
-
+    """
     st.dataframe(result_df)
 
     #Graph simple return
