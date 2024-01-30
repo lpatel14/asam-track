@@ -147,7 +147,7 @@ def main():
         return df
     
     # Apply the function to each group
-    simple_return = merged_df.groupby('Group').apply(divide_previous)
+    simple_return = merged_df.apply(divide_previous)
     st.dataframe(simple_return)
     #Graph simple return
     temp_return = simple_return.T
