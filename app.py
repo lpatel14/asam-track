@@ -139,13 +139,14 @@ def main():
     merged_df.reset_index(drop=False, inplace=True)
     for index, row in merged_df.iterrows():
         new_row = row.copy()
-        new_row[0] = new_row[0]
+        new_row[0] = row[0]
         for i in range(1, len(row)):
             new_row[i] = ((row[i] / row[i - 1])-1)*100
         result_df = pd.concat([result_df, new_row.to_frame().T], ignore_index=True)
-    
-    simple_return = result_df.drop(columns=['Total'])
+
     st.dataframe(result_df)
+    simple_return = result_df.drop(columns=['Total'])
+    
 
     #Graph simple return
     temp_return = simple_return.T
