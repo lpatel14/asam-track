@@ -136,13 +136,12 @@ def main():
     #simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
 
     result_df = pd.DataFrame(columns=merged_df.columns)
-
-    # Iterate over each row
     
     for index, row in merged_df.iterrows():
-        new_row = row.copy()  # Create a copy of the row to store the result
-        for i in range(1, len(row)):  # Start from the second column
-            new_row[i] = ((row[i] / row[i - 1])-1)*100  # Divide the current value by the previous value
+        new_row = row.copy()
+        for i in range(1, len(row)):
+            new_row[i] = ((row[i] / row[i - 1])-1)*100
+        new_row['Group'] = row['Group']
         result_df = pd.concat([result_df, new_row.to_frame().T], ignore_index=True)
     
     simple_return = result_df.drop(columns=['Total'])
