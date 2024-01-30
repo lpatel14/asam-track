@@ -148,7 +148,7 @@ def main():
     
     # Apply the function to each group
     simple_return = merged_df.groupby('Group').apply(divide_previous)
-
+    st.dataframe(simple_return)
     #Graph simple return
     temp_return = simple_return.T
     fig2 = go.Figure()
