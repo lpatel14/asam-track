@@ -132,10 +132,22 @@ def main():
 
     merged_df = pd.merge(left=tot_transactions, right=display_Total_Value, how='left', on=['Group'])
     #merged_df = tot_transactions.merge(display_Total_Value, how='left', left_index=True, right_index=True)
-    date_columns = merged_df.drop(columns=['Total'])
-    simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
+    #date_columns = merged_df.drop(columns=['Total'])
+    #simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
 
-    st.dataframe(merged_df)
+    def divide_previous(df):
+        prev_col = None
+
+        for col in df.columns:
+            if col != 'Group':
+                if prev_col is not None:
+                    df[col] /= df[prev_col]
+                prev_col = col
+        
+        return df
+    
+    # Apply the function to each group
+    simple_return = merged_df.groupby('Group').apply(divide_previous)
 
     #Graph simple return
     temp_return = simple_return.T
