@@ -130,7 +130,7 @@ def main():
 
     tot_transactions = transactions.drop(['Date'], axis=1).groupby('Group').sum()['Total']
     
-    merged_df = display_Total_Value.merge(tot_transactions, how='right', left_index=True, right_index=True)
+    merged_df = tot_transactions.merge(display_Total_Value, how='left', left_index=True, right_index=True)
     date_columns = merged_df.drop(columns=['Total'])
     simple_return = (date_columns.div(merged_df['Total'], axis=0)-1)*100
 
