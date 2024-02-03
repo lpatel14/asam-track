@@ -182,14 +182,15 @@ def main():
     final_port_stats = port_stats.merge(daily_vol, how='left', left_index=True, right_index=True)
     final_port_stats['Sharpe Ratio'] = final_port_stats['Excess Average Return']/final_port_stats['Volatility']
 
-    display_port_stats = final_port_stats.T
+    display_port_stats = final_port_stats.T.round(2)
     st.write(display_port_stats)
 
     cols = st.columns(len(display_port_stats.columns))
 
     for x in range(0, len(cols)):
+        st.subheader(display_port_stats.columns[x])
         for y in range(0, display_port_stats.shape[0]):
-            cols[x].metric(display_port_stats.columns[x], display_port_stats.iloc[x,y])
+            cols[x].metric(display_port_stats.index[y], display_port_stats.iloc[x,y])
         
     
 if __name__ == "__main__":
