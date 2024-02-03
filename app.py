@@ -156,14 +156,14 @@ def main():
     return_rf = return_rf.drop(columns=['Close'])
 
     avg_exc_ret = return_rf.mean()
-    avg_exc_ret.name = 'Excess Average Return'
+    avg_exc_ret.name = 'Excess Average Return (%)'
     avg_exc_ret = pd.DataFrame(avg_exc_ret)
 
     avg_simple_ret = simple_return.T.mean()
-    avg_simple_ret.name = 'Daily Average Return'
+    avg_simple_ret.name = 'Daily Average Return (%)'
 
     daily_vol = simple_return.T.std()
-    daily_vol.name = 'Volatility'
+    daily_vol.name = 'Volatility (%)'
     daily_vol = pd.DataFrame(daily_vol)
 
     port_stats = avg_exc_ret.merge(avg_simple_ret, how='left', left_index=True, right_index=True)
@@ -171,7 +171,6 @@ def main():
     final_port_stats['Sharpe Ratio'] = final_port_stats['Excess Average Return']/final_port_stats['Volatility']
 
     display_port_stats = final_port_stats.T
-    st.write(display_port_stats.style.format("{:.2}"))
     
     cols = st.columns(len(display_port_stats.columns))
 
