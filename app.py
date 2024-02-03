@@ -190,8 +190,7 @@ def main():
     for x in range(0, len(cols)):
         cols[x].subheader(display_port_stats.columns[x])
         for y in range(0, display_port_stats.shape[0]):
-            st.write(y)
-            cols[x].metric(display_port_stats.index[y], display_port_stats.iloc[y,x])
+            cols[x].metric(display_port_stats.index[y], display_port_stats.iloc[y,x].round(2))
         
     
 if __name__ == "__main__":
