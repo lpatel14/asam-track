@@ -1,3 +1,7 @@
+
+#v1: code written by Love Patel, MBA 2024 
+
+
 import streamlit as st
 import pandas as pd
 import numpy as np
