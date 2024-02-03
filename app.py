@@ -184,21 +184,17 @@ def main():
 
     st.write(final_port_stats)
 
+    display_port_stats = final_port_stats.T
 
-    # Layout for the four cards
-    col1, col2, col3, col4 = st.columns(4)
+    with st.beta_container():
 
-    with col1:
-        st.subheader("Group 1")
+        for group_col in display_port_stats.columns:
 
-    with col2:
-        st.subheader("Group 2")
+            group_data = display_port_stats[group_col]
 
-    with col3:
-        st.subheader("Group 3")
-
-    with col4:
-        st.subheader("Group 4")
+            with st.beta_container():
+            st.write(f"## {group_col}")
+            st.write(group_data)
     
 if __name__ == "__main__":
     main()
