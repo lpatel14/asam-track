@@ -105,16 +105,10 @@ def main():
     Total_Value_sliced  = Total_Value_sliced.T
     Total_Value.iloc[:,3:] = Total_Value_sliced
 
-    #Graph total value
+    #Calc total value
     display_Total_Value = Total_Value.groupby('Group').sum()
     display_Total_Value = display_Total_Value.drop(['Shares','Tickers'], axis=1)
     temp_value = display_Total_Value.T
-    fig1 = go.Figure()
-    for column in temp_value.columns:
-        fig1.add_trace(go.Scatter(x=temp_value.index, y=temp_value[column], mode='lines+markers', name=column))
-    
-    fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)', width=1200, height=800)
-    st.plotly_chart(fig1)
 
     # Apply pct_change() along the rows (now representing dates)
     daily_returns = Total_Value.drop(['Group','Shares'], axis=1)
@@ -145,14 +139,8 @@ def main():
     simple_return = result_df.drop(columns=['Total'])
     simple_return.set_index('Group', inplace=True)
 
-    #Graph simple return
+    #Calc simple return
     temp_return = simple_return.T
-    fig2 = go.Figure()
-    for column in temp_return.columns:
-        fig2.add_trace(go.Scatter(x=temp_return.index, y=temp_return[column], mode='lines+markers', name=column))
-    
-    fig2.update_layout(title='Simple Return', xaxis_title='Date', yaxis_title='Return (%)', width=1200, height=800)
-    st.plotly_chart(fig2)
 
     treasury_bill = yf.Ticker('^IRX')
     historical_treasury = treasury_bill.history(start=analysis_start_date, end=analysis_end_date_plusone)
@@ -190,7 +178,23 @@ def main():
     for x in range(0, len(cols)):
         cols[x].subheader(display_port_stats.columns[x])
         for y in range(0, display_port_stats.shape[0]):
-            cols[x].metric(display_port_stats.index[y], round(display_port_stats.iloc[y,x], 2))
+            cols[x].metric(display_port_stats.index[y], round(display_port_stats.iloc[y,x], 3))
+
+    #Graph total value
+    fig1 = go.Figure()
+    for column in temp_value.columns:
+        fig1.add_trace(go.Scatter(x=temp_value.index, y=temp_value[column], mode='lines+markers', name=column))
+    
+    fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)', width=1200, height=800)
+    st.plotly_chart(fig1)
+
+    #Graph simple return
+    fig2 = go.Figure()
+    for column in temp_return.columns:
+        fig2.add_trace(go.Scatter(x=temp_return.index, y=temp_return[column], mode='lines+markers', name=column))
+    
+    fig2.update_layout(title='Simple Return', xaxis_title='Date', yaxis_title='Return (%)', width=1200, height=800)
+    st.plotly_chart(fig2)
         
     
 if __name__ == "__main__":
