@@ -154,5 +154,34 @@ def main():
     fig2.update_layout(title='Simple Return', xaxis_title='Date', yaxis_title='Return (%)', width=1200, height=800)
     st.plotly_chart(fig2)
 
+    treasury_bill = yf.Ticker('^IRX')
+    historical_treasury = treasury_bill.history(start=analysis_start_date, end=analysis_end_date_plusone)
+    risk_free_rate = historical_treasury['Close']
+    risk_free_rate.index = risk_free_rate.index.tz_localize(None)
+    risk_free_rate['Close'] = risk_free_rate['Close']/252
+
+    return_rf = simple_return.T.merge(pd.DataFrame(risk_free_rate), how='left', left_index=True, right_index=True)
+    for group_col in simple_return.T.columns:
+        return_rf[group_col] = return_rf[group_col] - return_rf['Close']
+    
+    return_rf = return_rf.drop(columns=['Close'])
+
+    avg_exc_ret = return_rf.mean()
+    avg_exc_ret.name = 'Excess Average Return'
+    avg_exc_ret = pd.DataFrame(avg_exc_ret)
+
+    avg_simple_ret = simple_return.T.mean()
+    avg_simple_ret.name = 'Daily Average Return'
+
+    daily_vol = simple_return.T.std()
+    daily_vol.name = 'Volatility'
+    daily_vol = pd.DataFrame(daily_vol)
+
+    port_stats = avg_exc_ret.merge(avg_simple_ret, how='left', left_index=True, right_index=True)
+    final_port_stats = port_stats.merge(daily_vol, how='left', left_index=True, right_index=True)
+    final_port_stats['Sharpe Ratio'] = final_port_stats['Excess Average Return']/final_port_stats['Volatility']
+
+    st.DataFrame(final_port_stats)
+
 if __name__ == "__main__":
     main()
