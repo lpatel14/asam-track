@@ -158,6 +158,7 @@ def main():
     historical_treasury = treasury_bill.history(start=analysis_start_date, end=analysis_end_date_plusone)
     risk_free_rate = historical_treasury['Close']
     risk_free_rate.index = risk_free_rate.index.tz_localize(None)
+    risk_free_rate = pd.DataFrame(risk_free_rate)
     risk_free_rate['Close'] = risk_free_rate['Close']/252
 
     return_rf = simple_return.T.merge(pd.DataFrame(risk_free_rate), how='left', left_index=True, right_index=True)
