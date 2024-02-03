@@ -183,8 +183,8 @@ def main():
     final_port_stats['Sharpe Ratio'] = final_port_stats['Excess Average Return']/final_port_stats['Volatility']
 
     display_port_stats = final_port_stats.T
-    st.write(display_port_stats)
-    display_port_stats = display_port_stats.style.format("{:.2%}")
+    st.write(display_port_stats.style.format("{:.2%}"))
+    
     cols = st.columns(len(display_port_stats.columns))
 
     for x in range(0, len(cols)):
