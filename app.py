@@ -186,16 +186,12 @@ def main():
 
     display_port_stats = final_port_stats.T
 
-    with st.beta_container():
+    cols = st.columns(len(display_port_stats.columns))
 
-        for group_col in display_port_stats.columns:
-
-            group_data = display_port_stats[group_col]
-
-            with st.beta_container():
-                st.write(f"## {group_col}")
-                st.write(group_data)
-
+    for x in len(cols):
+        #for y in display_port_stats.shape[0]:
+            #col[x].metric(display_port_stats.columns[x],display_port_stats.iloc(x,y))
+        st.write(x)
     
 if __name__ == "__main__":
     main()
