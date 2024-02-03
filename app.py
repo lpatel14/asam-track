@@ -193,8 +193,9 @@ def main():
             group_data = display_port_stats[group_col]
 
             with st.beta_container():
-            st.write(f"## {group_col}")
-            st.write(group_data)
+                st.write(f"## {group_col}")
+                st.write(group_data)
+
     
 if __name__ == "__main__":
     main()
