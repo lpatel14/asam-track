@@ -188,7 +188,7 @@ def main():
     cols = st.columns(len(display_port_stats.columns))
 
     for x in range(0, len(cols)):
-        st.subheader(display_port_stats.columns[x])
+        cols[x].subheader(display_port_stats.columns[x])
         for y in range(0, display_port_stats.shape[0]):
             cols[x].metric(display_port_stats.index[y], display_port_stats.iloc[x,y])
         
