@@ -184,5 +184,21 @@ def main():
 
     st.write(final_port_stats)
 
+
+    # Layout for the four cards
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.subheader("Group 1")
+
+    with col2:
+        st.subheader("Group 2")
+
+    with col3:
+        st.subheader("Group 3")
+
+    with col4:
+        st.subheader("Group 4")
+    
 if __name__ == "__main__":
     main()
