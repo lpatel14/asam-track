@@ -189,9 +189,9 @@ def main():
     cols = st.columns(len(display_port_stats.columns))
 
     for x in range(0, len(cols)):
-        #for y in range(0, display_port_stats.shape[0]):
-            #col[x].metric(display_port_stats.columns[x], display_port_stats.iloc(x,y))
-        st.write(display_port_stats.columns[x])
+        for y in range(0, display_port_stats.shape[0]):
+            cols[x].metric(display_port_stats.columns[x], display_port_stats.iloc[x,y])
+        
     
 if __name__ == "__main__":
     main()
