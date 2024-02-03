@@ -182,9 +182,8 @@ def main():
     final_port_stats = port_stats.merge(daily_vol, how='left', left_index=True, right_index=True)
     final_port_stats['Sharpe Ratio'] = final_port_stats['Excess Average Return']/final_port_stats['Volatility']
 
-    st.write(final_port_stats)
-
     display_port_stats = final_port_stats.T
+    st.write(display_port_stats)
 
     cols = st.columns(len(display_port_stats.columns))
 
