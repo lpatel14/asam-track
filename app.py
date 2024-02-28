@@ -227,17 +227,16 @@ def main():
         
         X = final[['xs_mkt', 'smb', 'hml']]
         X = sm.add_constant(X)
-        st.write(X)
         y = return_rf[group_col]
-        st.write(y)
-        model = sm.OLS(y.astype(float), X).fit()
         
-        st.write(model.params)
+        model = sm.OLS(y.astype(float), X.astype(float)).fit()
+
         intercept = model.params['const']
         intercepts.append(intercept)
     
     alphas = pd.DataFrame({'Alpha': intercepts})
-    st.write(alphas)
+    alphas.index = ['Group ' + str(index) for index in alphas.index]
+    st.write(alphas.T)
     
     #Graph simple return
     #Feb 2024: Removing because graph chaotic
