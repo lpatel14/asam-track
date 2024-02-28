@@ -213,17 +213,14 @@ def main():
         intercepts.append(intercept)
     
     alphas = pd.DataFrame({'Alpha': intercepts})
-    alphas.index = ['Group ' + str(index) for index in alphas.index]
-    st.write(alphas)
+    alphas.index = ['Group ' + str(index+1) for index in alphas.index]
 
     port_stats = avg_exc_ret.merge(avg_simple_ret, how='left', left_index=True, right_index=True)
     final_port_stats = port_stats.merge(daily_vol, how='left', left_index=True, right_index=True)
     final_port_stats['Sharpe Ratio'] = final_port_stats['Excess Average Return (%)']/final_port_stats['Volatility (%)']
-    st.write(final_port_stats)
     final_port_stats = final_port_stats.merge(alphas, how='left', left_index=True, right_index=True)
 
     display_port_stats = final_port_stats.T
-    st.write(display_port_stats)
     
     cols = st.columns(len(display_port_stats.columns))
 
