@@ -205,7 +205,7 @@ def main():
         
         X = final[['xs_mkt', 'smb', 'hml']]
         X = sm.add_constant(X)
-        y = return_rf[group_col]
+        y = simple_return[group_col] #return_rf
         
         model = sm.OLS(y.astype(float), X.astype(float)).fit()
 
