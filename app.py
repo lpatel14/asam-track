@@ -27,9 +27,9 @@ def main():
     aapl = yf.Ticker("^GSPC")
 
     #Change to January of current year
-    data = yf.download("^GSPC", period='2d')['Close']
+    #data = yf.download("^GSPC", period='2d')['Close']
 
-    most_recent_trading_day = data.index[0]
+    #most_recent_trading_day = data.index[0]
 
     # Get today's date
     today = datetime.today().date()
@@ -46,7 +46,7 @@ def main():
             break
     
     st.write(previous_day)
-    
+
     #Change dynamic values
     analysis_start_date = pd.to_datetime('2023-12-29', format='%Y-%m-%d').date() #the day first stock was bought 
     analysis_end_date = most_recent_trading_day.date() #should be a trading day
