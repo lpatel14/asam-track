@@ -24,7 +24,7 @@ st.title("ASAM Tracker")
 def main():
 
     #stock_symbol = "AAPL"
-    aapl = yf.Ticker("AAPL")
+    aapl = yf.Ticker("^GSPC")
 
     #Change to January of current year
     data = yf.download(aapl, period='2d')['Close']
