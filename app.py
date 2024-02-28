@@ -230,7 +230,7 @@ def main():
         st.write(X)
         y = return_rf[group_col]
         st.write(y)
-        model = sm.OLS(y, X).fit()
+        model = sm.OLS(y.astype(float), X).fit()
         
         st.write(model.params)
         intercept = model.params['const']
