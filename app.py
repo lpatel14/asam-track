@@ -152,6 +152,7 @@ def main():
     risk_free_rate.index = risk_free_rate.index.tz_localize(None)
     risk_free_rate = pd.DataFrame(risk_free_rate)
     risk_free_rate['Close'] = risk_free_rate['Close']/252
+    st.write(risk_free_rate)
 
     return_rf = simple_return.T.merge(pd.DataFrame(risk_free_rate), how='left', left_index=True, right_index=True)
     for group_col in simple_return.T.columns:
