@@ -202,7 +202,7 @@ def main():
     #Calculate HML (Russell 3000 Value - Russell 3000 Growth)
     hml_tickers = "^RAV ^RAG"
     hml_data = yf.download(hml_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
-    hml_returns = data.pct_change()
+    hml_returns = hml_data.pct_change()
     hml = hml_returns['^RAV'] - hml_returns['^RAG']
     st.write(hml)
 
