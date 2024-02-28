@@ -152,14 +152,13 @@ def main():
     risk_free_rate.index = risk_free_rate.index.tz_localize(None)
     risk_free_rate = pd.DataFrame(risk_free_rate)
     risk_free_rate['Close'] = risk_free_rate['Close']/252
-    st.write(risk_free_rate)
 
     return_rf = simple_return.T.merge(pd.DataFrame(risk_free_rate), how='left', left_index=True, right_index=True)
     for group_col in simple_return.T.columns:
         return_rf[group_col] = return_rf[group_col] - return_rf['Close']
     
     return_rf = return_rf.drop(columns=['Close'])
-    #st.write(return_rf)
+
     avg_exc_ret = return_rf.mean()
     avg_exc_ret.name = 'Excess Average Return (%)'
     avg_exc_ret = pd.DataFrame(avg_exc_ret)
@@ -196,7 +195,7 @@ def main():
     sp = "^GSPC"
     sp_data = yf.download(sp, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     sp_returns = sp_data.pct_change()
-    xcess_mkt = sp_returns['Adj Close'] - risk_free_rate
+    xcess_mkt = sp_returns['Adj Close'] - risk_free_rate['Close']
     st.write(xcess_mkt) 
 
     #Calculate SMB (Russell 2000 - Russell 1000)
