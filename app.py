@@ -39,8 +39,9 @@ def main():
 
     # Keep subtracting days until we find a trading day
     while True:
+        previous_day_str = previous_day.strftime('%Y-%m-%d')
         # Check if the previous day is a trading day
-        if yf.download("^GSPC", start=previous_day, end=previous_day).empty:
+        if yf.download("^GSPC", start=previous_day_str, end=previous_day_str).empty:
             previous_day -= timedelta(days=1)
         else:
             break
