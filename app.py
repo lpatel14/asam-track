@@ -199,7 +199,7 @@ def main():
     
     final = pd.merge(xs_mkt, smb_returns, left_index=True, right_index=True)
     final = pd.merge(final, hml_returns, left_index=True, right_index=True)
-    
+    st.write(simple_return.T)
     intercepts = []
     for group_col in return_rf.columns:
         
