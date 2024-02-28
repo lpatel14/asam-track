@@ -216,9 +216,8 @@ def main():
     hml_returns = hml_data.pct_change()
     hml_returns['year'] = hml_returns.index.year
     hml_returns = hml_returns[(hml_returns['year'] == datetime.now().year)]
-    st.write(hml_returns)
     hml_returns['hml'] = hml_returns['^RAV'] - hml_returns['^RAG']
-    st.write(hml_returns)
+    hml_returns = hml_returns.loc[:, ['hml']]
     
 
     #Graph simple return
