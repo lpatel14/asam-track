@@ -26,27 +26,15 @@ def main():
     #stock_symbol = "AAPL"
     aapl = yf.Ticker("^GSPC")
 
+    msft = yf.Ticker("MSFT")
+    msft.info
+    hist = msft.history(period="2d")
+    st.write(hist)
+
     #Change to January of current year
     #data = yf.download("^GSPC", period='2d')['Close']
 
     #most_recent_trading_day = data.index[0]
-
-    # Get today's date
-    today = datetime.today().date()
-
-    # Subtract one day to ensure we're checking a trading day
-    previous_day = today - timedelta(days=1)
-
-    # Keep subtracting days until we find a trading day
-    while True:
-        previous_day_str = previous_day.strftime('%Y-%m-%d')
-        # Check if the previous day is a trading day
-        if yf.download("^GSPC", start=previous_day_str, end=previous_day_str).empty:
-            previous_day -= timedelta(days=1)
-        else:
-            break
-    
-    st.write(previous_day)
 
     #Change dynamic values
     analysis_start_date = pd.to_datetime('2023-12-29', format='%Y-%m-%d').date() #the day first stock was bought 
