@@ -195,7 +195,7 @@ def main():
     sp_returns = sp_data.pct_change()
     
     #sp_returns_rf = sp_returns.merge(risk_free_rate, how='left', on='Date')
-    st.write(sp_returns)
+    st.write(sp_returns.fillna(0))
     st.write(risk_free_rate)
     xs_mkt = pd.DataFrame({'Excess Market': sp_returns['Adj Close'] - risk_free_rate['Close']})
     st.write(sp_returns)
