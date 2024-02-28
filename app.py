@@ -158,7 +158,7 @@ def main():
         return_rf[group_col] = return_rf[group_col] - return_rf['Close']
     
     return_rf = return_rf.drop(columns=['Close'])
-
+    st.write(return_rf)
     avg_exc_ret = return_rf.mean()
     avg_exc_ret.name = 'Excess Average Return (%)'
     avg_exc_ret = pd.DataFrame(avg_exc_ret)
@@ -191,14 +191,16 @@ def main():
     fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)', width=1200, height=800)
     st.plotly_chart(fig1)
 
+    #Feb 2024: Removing because graph chaotic
     #Graph simple return
+    '''
     fig2 = go.Figure()
     for column in temp_return.columns:
         fig2.add_trace(go.Scatter(x=temp_return.index, y=temp_return[column], mode='lines+markers', name=column))
     
     fig2.update_layout(title='Simple Return', xaxis_title='Date', yaxis_title='Return (%)', width=1200, height=800)
     st.plotly_chart(fig2)
-        
+    '''
     
 if __name__ == "__main__":
     main()
