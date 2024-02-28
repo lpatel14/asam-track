@@ -230,8 +230,8 @@ def main():
         st.write(X)
         y = return_rf[group_col]
         st.write(y)
-        model = sm.OLS(pd.get_dummies(y), X).fit()
-        #results = model.fit()
+        model = sm.OLS(y, X).fit()
+        
         st.write(model.params)
         intercept = model.params['const']
         intercepts.append(intercept)
