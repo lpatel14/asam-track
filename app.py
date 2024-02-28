@@ -198,7 +198,7 @@ def main():
     xs_mkt['year'] = xs_mkt.index.year
     xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
     xs_mkt['xs_mkt'] = xs_mkt['Adj Close'] - xs_mkt['Close']
-    #st.write(xs_mkt)
+    st.write(xs_mkt)
 
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
@@ -206,7 +206,6 @@ def main():
     smb_returns = smb_data.pct_change()
     smb_returns['year'] = smb_returns.index.year
     smb_returns = smb_returns[(smb_returns['year'] == datetime.now().year)]
-    st.write(smb_returns)
     smb_returns['smb'] = smb_returns['^RUT'] - smb_returns['^RUI']
     
 
@@ -214,6 +213,8 @@ def main():
     hml_tickers = "^RAV ^RAG"
     hml_data = yf.download(hml_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     hml_returns = hml_data.pct_change()
+    hml_returns['year'] = hml_returns.index.year
+    hml_returns = hml_returns[(hml_returns['year'] == datetime.now().year)]
     hml_returns['hml'] = hml_returns['^RAV'] - hml_returns['^RAG']
     st.write(hml_returns)
 
