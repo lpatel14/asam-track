@@ -231,14 +231,13 @@ def main():
         y = return_rf[group_col]
         st.write(y)
         model = sm.OLS(pd.get_dummies(y), X).fit()
-        st.write(model)
         #results = model.fit()
 
-        #intercept = results.params['const']
-        #intercepts.append(intercept)
+        intercept = model.params['const']
+        intercepts.append(intercept)
     
-    #alphas = pd.DataFrame({'Alpha': intercepts})
-    #st.write(alphas)
+    alphas = pd.DataFrame({'Alpha': intercepts})
+    st.write(alphas)
     
     #Graph simple return
     #Feb 2024: Removing because graph chaotic
