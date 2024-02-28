@@ -193,29 +193,26 @@ def main():
     sp = "^GSPC"
     sp_data = yf.download(sp, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     sp_returns = sp_data.pct_change()
-    #st.write(sp_returns.rename(columns={'Adj Close': 'SP'}, inplace=True))
     
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
     xs_mkt['year'] = xs_mkt.index.year
-    st.write(xs_mkt)
     xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
+    xs_mkt['xs_mkt'] = xs_mkt['Adj Close'] - xs_mkt['Close']
     st.write(xs_mkt)
 
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
     smb_data = yf.download(smb_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     smb_returns = smb_data.pct_change()
-    smb = smb_returns['^RUT'] - smb_returns['^RUI']
-    st.write(smb)
+    smb_returns['smb'] = smb_returns['^RUT'] - smb_returns['^RUI']
+    st.write(smb_returns)
 
     #Calculate HML (Russell 3000 Value - Russell 3000 Growth)
     hml_tickers = "^RAV ^RAG"
     hml_data = yf.download(hml_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     hml_returns = hml_data.pct_change()
-    hml = hml_returns['^RAV'] - hml_returns['^RAG']
-    st.write(hml)
-
-
+    hml_returns['hml'] = hml_returns['^RAV'] - hml_returns['^RAG']
+    st.write(hml_returns)
 
     #Graph simple return
     #Feb 2024: Removing because graph chaotic
