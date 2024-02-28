@@ -195,10 +195,10 @@ def main():
     sp_returns = sp_data.pct_change()
     
     #sp_returns_rf = sp_returns.merge(risk_free_rate, how='left', on='Date')
-    xcess_mkt = sp_returns['Adj Close'] - risk_free_rate['Close']
+    xs_mkt = pd.DataFrame({'Excess Market': sp_returns['Adj Close'] - risk_free_rate['Close']})
     st.write(sp_returns)
     st.write(risk_free_rate)
-    st.write(xcess_mkt)
+    st.write(xs_mkt)
 
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
