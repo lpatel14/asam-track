@@ -173,6 +173,7 @@ def main():
     final_port_stats['Sharpe Ratio'] = final_port_stats['Excess Average Return (%)']/final_port_stats['Volatility (%)']
 
     display_port_stats = final_port_stats.T
+    st.write(display_port_stats)
     
     cols = st.columns(len(display_port_stats.columns))
 
@@ -220,8 +221,22 @@ def main():
     
     final = pd.merge(xs_mkt, smb_returns, left_index=True, right_index=True)
     final = pd.merge(final, hml_returns, left_index=True, right_index=True)
+
+    intercepts = []
+    for group_col in return_rf.columns:
+
+        X = final[['xs_mkt', 'smb', 'hml']]
+        X = sm.add_constant(X)
+        y = return_rf[group_col]
+        model = sm.OLS(y, X)
+        results = model.fit()
+
+        intercept = results.params['const']
+        intercepts.append(intercept)
     
-    st.write(final)
+    alphas = pd.DataFrame({'Alpha': intercepts})
+    st.write(alphas)
+    
     #Graph simple return
     #Feb 2024: Removing because graph chaotic
     #fig2 = go.Figure()
