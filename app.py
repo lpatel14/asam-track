@@ -159,7 +159,7 @@ def main():
         return_rf[group_col] = return_rf[group_col] - return_rf['Close']
     
     return_rf = return_rf.drop(columns=['Close'])
-    st.write(return_rf)
+    #st.write(return_rf)
     avg_exc_ret = return_rf.mean()
     avg_exc_ret.name = 'Excess Average Return (%)'
     avg_exc_ret = pd.DataFrame(avg_exc_ret)
