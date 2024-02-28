@@ -199,7 +199,6 @@ def main():
     xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
     xs_mkt['xs_mkt'] = xs_mkt['Adj Close'] - xs_mkt['Close']
     xs_mkt = xs_mkt.loc[:, ['xs_mkt']]
-    st.write(xs_mkt)
 
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
@@ -208,6 +207,7 @@ def main():
     smb_returns['year'] = smb_returns.index.year
     smb_returns = smb_returns[(smb_returns['year'] == datetime.now().year)]
     smb_returns['smb'] = smb_returns['^RUT'] - smb_returns['^RUI']
+    smb_returns = smb_returns.loc[:, ['smb']]
     
 
     #Calculate HML (Russell 3000 Value - Russell 3000 Growth)
@@ -216,8 +216,9 @@ def main():
     hml_returns = hml_data.pct_change()
     hml_returns['year'] = hml_returns.index.year
     hml_returns = hml_returns[(hml_returns['year'] == datetime.now().year)]
-    hml_returns['hml'] = hml_returns['^RAV'] - hml_returns['^RAG']
     st.write(hml_returns)
+    hml_returns['hml'] = hml_returns['^RAV'] - hml_returns['^RAG']
+    
 
     #Graph simple return
     #Feb 2024: Removing because graph chaotic
