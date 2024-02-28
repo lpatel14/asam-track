@@ -219,7 +219,8 @@ def main():
     port_stats = avg_exc_ret.merge(avg_simple_ret, how='left', left_index=True, right_index=True)
     final_port_stats = port_stats.merge(daily_vol, how='left', left_index=True, right_index=True)
     final_port_stats['Sharpe Ratio'] = final_port_stats['Excess Average Return (%)']/final_port_stats['Volatility (%)']
-    final_port_stats = final_port_stats.merge(final_port_stats, alphas, how='left', left_index=True, right_index=True)
+    st.write(final_port_stats)
+    final_port_stats = final_port_stats.merge(alphas, how='left', left_index=True, right_index=True)
 
     display_port_stats = final_port_stats.T
     st.write(display_port_stats)
