@@ -191,12 +191,18 @@ def main():
     fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)', width=1200, height=800)
     st.plotly_chart(fig1)
 
+    #Calculate excess market return (S&P - Risk-free)
+    sp = "^GSPC"
+    sp_data = yf.download(sp, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
+    sp_returns = sp_data.pct_change()
+    #xcess_mkt =
+    st.write(sp_returns) 
+
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
     smb_data = yf.download(smb_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     smb_returns = smb_data.pct_change()
     smb = smb_returns['^RUT'] - smb_returns['^RUI']
-
     st.write(smb)
 
     #Calculate HML (Russell 3000 Value - Russell 3000 Growth)
@@ -205,6 +211,8 @@ def main():
     hml_returns = hml_data.pct_change()
     hml = hml_returns['^RAV'] - hml_returns['^RAG']
     st.write(hml)
+
+
 
     #Graph simple return
     #Feb 2024: Removing because graph chaotic
