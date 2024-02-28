@@ -144,7 +144,7 @@ def main():
     simple_return.set_index('Group', inplace=True)
 
     #Calc simple return
-    temp_return = simple_return.T
+    #temp_return = simple_return.T
 
     treasury_bill = yf.Ticker('^IRX')
     historical_treasury = treasury_bill.history(start=analysis_start_date, end=analysis_end_date_plusone)
@@ -191,8 +191,20 @@ def main():
     fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)', width=1200, height=800)
     st.plotly_chart(fig1)
 
-    #Feb 2024: Removing because graph chaotic
+    #Calculate SMB (Russell 2000 - Russell 1000)
+    smb_tickers = "^RUT ^RUI"
+    smb_data = yf.download(smb_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
+    smb_returns = smb_data.pct_change()
+
+    #Calculate average returns for Russell 2000 and Russell 1000
+    avg_return_r2000 = smb_returns['^RUT'].mean()
+    avg_return_r1000 = smb_returns['^RUI'].mean()
+
+    smb = avg_return_r2000 - avg_return_r1000
+    st.write(smb)
+
     #Graph simple return
+    #Feb 2024: Removing because graph chaotic
     '''
     fig2 = go.Figure()
     for column in temp_return.columns:
