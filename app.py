@@ -228,7 +228,7 @@ def main():
         X = final[['xs_mkt', 'smb', 'hml']]
         X = sm.add_constant(X)
         y = return_rf[group_col]
-        model = sm.OLS(y, X)
+        model = sm.OLS(y, X).fit()
         st.write(model)
         #results = model.fit()
 
