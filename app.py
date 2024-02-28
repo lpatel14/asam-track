@@ -196,6 +196,7 @@ def main():
     #st.write(sp_returns.rename(columns={'Adj Close': 'SP'}, inplace=True))
     
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
+    st.write(xs_mkt)
     xs_mkt['year'] = xs_mkt['Date'].dt.year
     xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
     st.write(xs_mkt)
