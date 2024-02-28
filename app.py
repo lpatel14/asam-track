@@ -218,7 +218,10 @@ def main():
     hml_returns['hml'] = hml_returns['^RAV'] - hml_returns['^RAG']
     hml_returns = hml_returns.loc[:, ['hml']]
     
-    st.write(return_rf)
+    final = pd.merge(xs_mkt, smb_returns, left_index=True, right_index=True)
+    final = pd.merge(final, hml_returns, left_index=True, right_index=True)
+    
+    st.write(final)
     #Graph simple return
     #Feb 2024: Removing because graph chaotic
     #fig2 = go.Figure()
