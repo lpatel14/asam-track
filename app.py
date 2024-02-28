@@ -152,6 +152,7 @@ def main():
     risk_free_rate['Close'] = risk_free_rate['Close']/252
 
     return_rf = simple_return.T.merge(pd.DataFrame(risk_free_rate), how='left', left_index=True, right_index=True)
+    st.write(return_rf)
     for group_col in simple_return.T.columns:
         return_rf[group_col] = return_rf[group_col] - return_rf['Close']
     
