@@ -26,7 +26,7 @@ def main():
     stock_symbol = "AAPL"
 
     #Change to January of current year
-    data = yf.download(stock_symbol, period='2d')
+    data = yf.download(stock_symbol, period='2d')['Close']
 
     most_recent_trading_day = data.index[0]
 
