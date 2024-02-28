@@ -154,7 +154,7 @@ def main():
     return_rf = simple_return.T.merge(pd.DataFrame(risk_free_rate), how='left', left_index=True, right_index=True)
     
     for group_col in simple_return.T.columns:
-        return_rf[group_col] = return_rf[group_col] - (return_rf['Close']*100)
+        return_rf[group_col] = return_rf[group_col] - (return_rf['Close'])
     
     return_rf = return_rf.drop(columns=['Close'])
     
