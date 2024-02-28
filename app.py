@@ -195,13 +195,16 @@ def main():
     smb_tickers = "^RUT ^RUI"
     smb_data = yf.download(smb_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     smb_returns = smb_data.pct_change()
+    smb = smb_returns['^RUT'] - smb_returns['^RUI']
 
-    #Calculate average returns for Russell 2000 and Russell 1000
-    avg_return_r2000 = smb_returns['^RUT'].mean()
-    avg_return_r1000 = smb_returns['^RUI'].mean()
-
-    smb = avg_return_r2000 - avg_return_r1000
     st.write(smb)
+
+    #Calculate HML (Russell 3000 Value - Russell 3000 Growth)
+    hml_tickers = "^RAV ^RAG"
+    hml_data = yf.download(hml_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
+    hml_returns = data.pct_change()
+    hml = hml_returns['^RAV'] - hml_returns['^RAG']
+    st.write(hml)
 
     #Graph simple return
     #Feb 2024: Removing because graph chaotic
