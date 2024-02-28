@@ -27,7 +27,7 @@ def main():
     aapl = yf.Ticker("^GSPC")
 
     #Change to January of current year
-    data = yf.download(aapl, period='2d')['Close']
+    data = yf.download("^GSPC", period='2d')['Close']
 
     most_recent_trading_day = data.index[0]
 
