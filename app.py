@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import openpyxl
 import math
 import yfinance as yf
-import datetime
+from datetime import datetime, timedelta
 from pandas_datareader import data as pdr
 import warnings
 import statsmodels.api as sm
@@ -31,6 +31,22 @@ def main():
 
     most_recent_trading_day = data.index[0]
 
+    # Get today's date
+    today = datetime.today().date()
+
+    # Subtract one day to ensure we're checking a trading day
+    previous_day = today - timedelta(days=1)
+
+    # Keep subtracting days until we find a trading day
+    while True:
+        # Check if the previous day is a trading day
+        if yf.download("^GSPC", start=previous_day, end=previous_day).empty:
+            previous_day -= timedelta(days=1)
+        else:
+            break
+    
+    st.write(previous_day)
+    
     #Change dynamic values
     analysis_start_date = pd.to_datetime('2023-12-29', format='%Y-%m-%d').date() #the day first stock was bought 
     analysis_end_date = most_recent_trading_day.date() #should be a trading day
