@@ -183,6 +183,8 @@ def main():
     smb_tickers = "^RUT ^RUI"
     smb_data = yf.download(smb_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     smb_returns = smb_data.pct_change()
+    st.write(smb_data)
+    st.write(smb_returns)
     smb_returns['year'] = smb_returns.index.year
     smb_returns = smb_returns[(smb_returns['year'] == datetime.now().year)]
     smb_returns['smb'] = smb_returns['^RUT'] - smb_returns['^RUI']
