@@ -224,18 +224,18 @@ def main():
 
     intercepts = []
     for group_col in return_rf.columns:
-
+        st.write(return_rf[group_col])
         X = final[['xs_mkt', 'smb', 'hml']]
         X = sm.add_constant(X)
         y = return_rf[group_col]
-        model = sm.OLS(y, X)
-        results = model.fit()
+        #model = sm.OLS(y, X)
+        #results = model.fit()
 
-        intercept = results.params['const']
-        intercepts.append(intercept)
+        #intercept = results.params['const']
+        #intercepts.append(intercept)
     
-    alphas = pd.DataFrame({'Alpha': intercepts})
-    st.write(alphas)
+    #alphas = pd.DataFrame({'Alpha': intercepts})
+    #st.write(alphas)
     
     #Graph simple return
     #Feb 2024: Removing because graph chaotic
