@@ -168,28 +168,6 @@ def main():
     daily_vol.name = 'Volatility (%)'
     daily_vol = pd.DataFrame(daily_vol)
 
-    port_stats = avg_exc_ret.merge(avg_simple_ret, how='left', left_index=True, right_index=True)
-    final_port_stats = port_stats.merge(daily_vol, how='left', left_index=True, right_index=True)
-    final_port_stats['Sharpe Ratio'] = final_port_stats['Excess Average Return (%)']/final_port_stats['Volatility (%)']
-
-    display_port_stats = final_port_stats.T
-    st.write(display_port_stats)
-    
-    cols = st.columns(len(display_port_stats.columns))
-
-    for x in range(0, len(cols)):
-        cols[x].subheader(display_port_stats.columns[x])
-        for y in range(0, display_port_stats.shape[0]):
-            cols[x].metric(display_port_stats.index[y], round(display_port_stats.iloc[y,x], 3))
-
-    #Graph total value
-    fig1 = go.Figure()
-    for column in temp_value.columns:
-        fig1.add_trace(go.Scatter(x=temp_value.index, y=temp_value[column], mode='lines+markers', name=column))
-    
-    fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)', width=1200, height=800)
-    st.plotly_chart(fig1)
-
     #Calculate excess market return (S&P - Risk-free)
     sp = "^GSPC"
     sp_data = yf.download(sp, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
@@ -236,7 +214,30 @@ def main():
     
     alphas = pd.DataFrame({'Alpha': intercepts})
     alphas.index = ['Group ' + str(index) for index in alphas.index]
-    st.write(alphas.T)
+    st.write(alphas)
+
+    port_stats = avg_exc_ret.merge(avg_simple_ret, how='left', left_index=True, right_index=True)
+    final_port_stats = port_stats.merge(daily_vol, how='left', left_index=True, right_index=True)
+    final_port_stats['Sharpe Ratio'] = final_port_stats['Excess Average Return (%)']/final_port_stats['Volatility (%)']
+    final_port_stats = final_port_stats.merge(final_port_stats, alphas, how='left', left_index=True, right_index=True)
+
+    display_port_stats = final_port_stats.T
+    st.write(display_port_stats)
+    
+    cols = st.columns(len(display_port_stats.columns))
+
+    for x in range(0, len(cols)):
+        cols[x].subheader(display_port_stats.columns[x])
+        for y in range(0, display_port_stats.shape[0]):
+            cols[x].metric(display_port_stats.index[y], round(display_port_stats.iloc[y,x], 3))
+
+    #Graph total value
+    fig1 = go.Figure()
+    for column in temp_value.columns:
+        fig1.add_trace(go.Scatter(x=temp_value.index, y=temp_value[column], mode='lines+markers', name=column))
+    
+    fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)', width=1200, height=800)
+    st.plotly_chart(fig1)
     
     #Graph simple return
     #Feb 2024: Removing because graph chaotic
