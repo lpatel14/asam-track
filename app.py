@@ -224,11 +224,12 @@ def main():
 
     intercepts = []
     for group_col in return_rf.columns:
-        st.write(return_rf[group_col])
+        
         X = final[['xs_mkt', 'smb', 'hml']]
         X = sm.add_constant(X)
         y = return_rf[group_col]
-        #model = sm.OLS(y, X)
+        model = sm.OLS(y, X)
+        st.write(model)
         #results = model.fit()
 
         #intercept = results.params['const']
