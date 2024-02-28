@@ -199,13 +199,13 @@ def main():
     
     final = pd.merge(xs_mkt, smb_returns, left_index=True, right_index=True)
     final = pd.merge(final, hml_returns, left_index=True, right_index=True)
-
+    st.write(simple_return)
     intercepts = []
     for group_col in return_rf.columns:
         
         X = final[['xs_mkt', 'smb', 'hml']]
         X = sm.add_constant(X)
-        y = simple_return[group_col] #return_rf
+        y = return_rf[group_col]
         
         model = sm.OLS(y.astype(float), X.astype(float)).fit()
 
