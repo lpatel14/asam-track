@@ -218,6 +218,7 @@ def main():
     hml_returns = hml_returns[(hml_returns['year'] == datetime.now().year)]
     st.write(hml_returns)
     hml_returns['hml'] = hml_returns['^RAV'] - hml_returns['^RAG']
+    st.write(hml_returns)
     
 
     #Graph simple return
