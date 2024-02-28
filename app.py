@@ -230,7 +230,7 @@ def main():
         st.write(X)
         y = return_rf[group_col]
         st.write(y)
-        model = sm.OLS(y, X).fit()
+        model = sm.OLS(y, X.astype(float)).fit()
         st.write(model)
         #results = model.fit()
 
