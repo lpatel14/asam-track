@@ -195,8 +195,8 @@ def main():
     sp = "^GSPC"
     sp_data = yf.download(sp, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     sp_returns = sp_data.pct_change()
-    #xcess_mkt =
-    st.write(sp_returns) 
+    xcess_mkt = sp_returns['Adj Close'] - risk_free_rate
+    st.write(xcess_mkt) 
 
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
