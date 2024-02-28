@@ -209,7 +209,6 @@ def main():
     smb_returns['smb'] = smb_returns['^RUT'] - smb_returns['^RUI']
     smb_returns = smb_returns.loc[:, ['smb']]
     
-
     #Calculate HML (Russell 3000 Value - Russell 3000 Growth)
     hml_tickers = "^RAV ^RAG"
     hml_data = yf.download(hml_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
@@ -219,17 +218,16 @@ def main():
     hml_returns['hml'] = hml_returns['^RAV'] - hml_returns['^RAG']
     hml_returns = hml_returns.loc[:, ['hml']]
     
-
+    st.write(return_rf)
     #Graph simple return
     #Feb 2024: Removing because graph chaotic
-    '''
-    fig2 = go.Figure()
-    for column in temp_return.columns:
-        fig2.add_trace(go.Scatter(x=temp_return.index, y=temp_return[column], mode='lines+markers', name=column))
+    #fig2 = go.Figure()
+    #for column in temp_return.columns:
+        #fig2.add_trace(go.Scatter(x=temp_return.index, y=temp_return[column], mode='lines+markers', name=column))
     
-    fig2.update_layout(title='Simple Return', xaxis_title='Date', yaxis_title='Return (%)', width=1200, height=800)
-    st.plotly_chart(fig2)
-    '''
+    #fig2.update_layout(title='Simple Return', xaxis_title='Date', yaxis_title='Return (%)', width=1200, height=800)
+    #st.plotly_chart(fig2)
+
     
 if __name__ == "__main__":
     main()
