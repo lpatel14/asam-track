@@ -193,13 +193,11 @@ def main():
     sp = "^GSPC"
     sp_data = yf.download(sp, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     sp_returns = sp_data.pct_change()
+    sp_returns = sp_returns.rename(columns={'Adj Close': 'SP'}, inplace=True)
     
-    #sp_returns_rf = sp_returns.merge(risk_free_rate, how='left', on='Date')
-    st.write(sp_returns.fillna(0))
-    st.write(risk_free_rate)
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
-    st.write(sp_returns)
-    st.write(risk_free_rate)
+    xs_mkt['year'] = xs_mkt['Date'].dt.year
+    xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
     st.write(xs_mkt)
 
     #Calculate SMB (Russell 2000 - Russell 1000)
@@ -207,14 +205,14 @@ def main():
     smb_data = yf.download(smb_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     smb_returns = smb_data.pct_change()
     smb = smb_returns['^RUT'] - smb_returns['^RUI']
-    #st.write(smb)
+    st.write(smb)
 
     #Calculate HML (Russell 3000 Value - Russell 3000 Growth)
     hml_tickers = "^RAV ^RAG"
     hml_data = yf.download(hml_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     hml_returns = hml_data.pct_change()
     hml = hml_returns['^RAV'] - hml_returns['^RAG']
-    #st.write(hml)
+    st.write(hml)
 
 
 
