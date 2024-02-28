@@ -23,10 +23,11 @@ st.title("ASAM Tracker")
 
 def main():
 
-    stock_symbol = "AAPL"
+    #stock_symbol = "AAPL"
+    aapl = yf.Ticker("AAPL")
 
     #Change to January of current year
-    data = yf.download(stock_symbol, period='2d')['Close']
+    data = yf.download(aapl, period='2d')['Close']
 
     most_recent_trading_day = data.index[0]
 
