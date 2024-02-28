@@ -232,7 +232,7 @@ def main():
         st.write(y)
         model = sm.OLS(pd.get_dummies(y), X).fit()
         #results = model.fit()
-
+        st.write(model.params)
         intercept = model.params['const']
         intercepts.append(intercept)
     
