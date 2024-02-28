@@ -204,8 +204,9 @@ def main():
     smb_tickers = "^RUT ^RUI"
     smb_data = yf.download(smb_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     smb_returns = smb_data.pct_change()
-    smb_returns['smb'] = smb_returns['^RUT'] - smb_returns['^RUI']
     st.write(smb_returns)
+    smb_returns['smb'] = smb_returns['^RUT'] - smb_returns['^RUI']
+    
 
     #Calculate HML (Russell 3000 Value - Russell 3000 Growth)
     hml_tickers = "^RAV ^RAG"
