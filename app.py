@@ -198,7 +198,7 @@ def main():
     xs_mkt['year'] = xs_mkt.index.year
     xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
     xs_mkt['xs_mkt'] = xs_mkt['Adj Close'] - xs_mkt['Close']
-    st.write(xs_mkt)
+    #st.write(xs_mkt)
 
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
