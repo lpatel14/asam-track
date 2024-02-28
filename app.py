@@ -195,8 +195,9 @@ def main():
     sp = "^GSPC"
     sp_data = yf.download(sp, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     sp_returns = sp_data.pct_change()
-    xcess_mkt = sp_returns['Adj Close'] - risk_free_rate['Close']
-    st.write(xcess_mkt) 
+    sp_returns_rf = sp_returns.T.merge(pd.DataFrame(risk_free_rate), how='left', left_index=True, right_index=True)
+    #xcess_mkt = sp_returns['Adj Close'] - risk_free_rate['Close']
+    st.write(sp_returns_rf) 
 
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
