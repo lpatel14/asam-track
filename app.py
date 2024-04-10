@@ -207,11 +207,11 @@ def main():
         X = final[['xs_mkt', 'smb', 'hml']]
         X = sm.add_constant(X)
         y = return_rf[group_col]/100 #simple_return.T
-        
-        model = sm.OLS(y.astype(float), X.astype(float)).fit()
+        st.dataframe(X)
+        #model = sm.OLS(y.astype(float), X.astype(float)).fit()
 
-        intercept = model.params['const']
-        intercepts.append(intercept)
+        #intercept = model.params['const']
+        #intercepts.append(intercept)
     
     alphas = pd.DataFrame({'Alpha': intercepts})
     alphas.index = ['Group ' + str(index+1) for index in alphas.index]
