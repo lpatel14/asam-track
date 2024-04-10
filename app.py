@@ -195,7 +195,6 @@ def main():
     hml_returns = hml_data.pct_change()
     hml_returns['year'] = hml_returns.index.year
     hml_returns = hml_returns[(hml_returns['year'] == datetime.now().year)]
-    st.dataframe(hml_returns)
     hml_returns['hml'] = hml_returns['^RAV'] - hml_returns['^RAG']
     hml_returns = hml_returns.loc[:, ['hml']]
     
@@ -209,10 +208,10 @@ def main():
         X = sm.add_constant(X)
         y = return_rf[group_col]/100 #simple_return.T
         st.dataframe(X)
-        #model = sm.OLS(y.astype(float), X.astype(float)).fit()
+        model = sm.OLS(y.astype(float), X.astype(float)).fit()
 
-        #intercept = model.params['const']
-        #intercepts.append(intercept)
+        intercept = model.params['const']
+        intercepts.append(intercept)
     
     alphas = pd.DataFrame({'Alpha': intercepts})
     alphas.index = ['Group ' + str(index+1) for index in alphas.index]
