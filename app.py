@@ -208,7 +208,7 @@ def main():
         X = sm.add_constant(X)
         X = X.dropna()
         y = return_rf[group_col]/100 #simple_return.T
-        st.dataframe(y)
+        y = y.dropna()
         model = sm.OLS(y.astype(float), X.astype(float)).fit()
 
         intercept = model.params['const']
