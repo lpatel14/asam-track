@@ -175,7 +175,6 @@ def main():
     sp_returns = sp_data.pct_change()
     
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
-    st.dataframe(xs_mkt)
     xs_mkt['year'] = xs_mkt.index.year
     xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
     xs_mkt['xs_mkt'] = xs_mkt['Adj Close'] - xs_mkt['Close']
@@ -207,8 +206,9 @@ def main():
         
         X = final[['xs_mkt', 'smb', 'hml']]
         X = sm.add_constant(X)
-        y = return_rf[group_col]/100 #simple_return.T
+        X = X.dropna()
         st.dataframe(X)
+        y = return_rf[group_col]/100 #simple_return.T
         model = sm.OLS(y.astype(float), X.astype(float)).fit()
 
         intercept = model.params['const']
