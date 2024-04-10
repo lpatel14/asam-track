@@ -207,8 +207,8 @@ def main():
         X = final[['xs_mkt', 'smb', 'hml']]
         X = sm.add_constant(X)
         X = X.dropna()
-        st.dataframe(X)
         y = return_rf[group_col]/100 #simple_return.T
+        st.dataframe(y)
         model = sm.OLS(y.astype(float), X.astype(float)).fit()
 
         intercept = model.params['const']
