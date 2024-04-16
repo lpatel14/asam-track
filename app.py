@@ -174,7 +174,7 @@ def main():
     sp_data = yf.download(sp, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     sp_returns = sp_data.pct_change()
     sp_returns_stats = sp_returns.dropna()
-    st.dataframe(sp_returns_stats)
+    st.dataframe(sp_data)
     
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
     xs_mkt['year'] = xs_mkt.index.year
@@ -243,7 +243,7 @@ def main():
     
     sp_daily_avg_ret = sp_returns_stats.mean()*100
     sp_daily_vol = sp_returns_stats.std()*100
-    sp_ytd_ret = (sp_returns_stats.iloc[-1] / sp_returns_stats.iloc[0] - 1) * 100
+    sp_ytd_ret = ((sp_returns_stats.iloc[-1] / sp_returns_stats.iloc[0]) - 1) * 100
 
     st.metric(label="Daily Average Returns (%)", value=round(sp_daily_avg_ret, 4))
     st.metric(label="Daily Standard Deviation (%)", value=round(sp_daily_vol, 4))
