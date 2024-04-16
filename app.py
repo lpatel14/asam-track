@@ -174,8 +174,6 @@ def main():
     sp_data = yf.download(sp, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     sp_returns = sp_data.pct_change()
     sp_returns_stats = sp_returns.dropna()
-    st.dataframe(sp_returns_stats)
-    sp_daily_avg_ret = sp_returns_stats.mean()
     
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
     xs_mkt['year'] = xs_mkt.index.year
@@ -242,9 +240,9 @@ def main():
     fig1.update_layout(title='Portfolio Value', xaxis_title='Date', yaxis_title='Value ($)', width=1200, height=800)
     st.plotly_chart(fig1)
     
-    #sp_daily_avg_ret = sp_returns_stats['Adj Close'].mean()
-    #sp_daily_vol = sp_returns_stats['Adj Close'].std()
-    #sp_ytd_ret = (sp_returns_stats['Adj Close'].iloc[-1] / sp_returns_stats['Adj Close'].iloc[0] - 1) * 100
+    sp_daily_avg_ret = sp_returns_stats.mean()
+    sp_daily_vol = sp_returns_stats.std()
+    sp_ytd_ret = (sp_returns_stats.iloc[-1] / sp_returns_stats.iloc[0] - 1) * 100
 
     st.metric(label="Daily Average Returns", value=sp_daily_avg_ret)
     st.metric(label="Daily Standard Deviation", value=sp_daily_vol)
