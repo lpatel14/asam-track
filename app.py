@@ -174,7 +174,7 @@ def main():
     sp_data = yf.download(sp, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     sp_returns = sp_data.pct_change()
     sp_returns_stats = sp_returns.dropna()
-    st.dataframe(sp_returns_stats)
+    st.dataframe(sp_returns_stats['Adj Close'])
     sp_daily_avg_ret = sp_returns_stats['Adj Close'].mean()
     
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
