@@ -232,7 +232,7 @@ def main():
     col1, col2, col3 = st.columns(3)
     col1.metric(label="Daily Average Returns (%)", value=round(sp_daily_avg_ret, 4))
     col2.metric(label="Daily Standard Deviation (%)", value=round(sp_daily_vol, 4))
-    col3.metric(label="Year-to-Date Returns (%)", value=sp_ytd_ret)
+    col3.metric(label="Year-to-Date Returns (%)", value=round(sp_ytd_ret, 4))
     
     cols = st.columns(len(display_port_stats.columns))
 
