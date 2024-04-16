@@ -175,7 +175,7 @@ def main():
     sp_returns = sp_data.pct_change()
     sp_returns_stats = sp_returns.dropna()
     st.dataframe(sp_returns_stats['Adj Close'])
-    sp_daily_avg_ret = sp_returns_stats['Adj Close'].mean()
+    #sp_daily_avg_ret = sp_returns_stats['Adj Close'].mean()
     
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
     xs_mkt['year'] = xs_mkt.index.year
