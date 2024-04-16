@@ -174,6 +174,7 @@ def main():
     sp_data = yf.download(sp, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     sp_returns = sp_data.pct_change()
     sp_returns_stats = sp_returns.dropna()
+    st.dataframe(sp_data)
     
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
     xs_mkt['year'] = xs_mkt.index.year
@@ -224,6 +225,12 @@ def main():
     final_port_stats = final_port_stats.merge(alphas, how='left', left_index=True, right_index=True)
 
     display_port_stats = final_port_stats.T
+
+    col1, col2, col3 = st.columns(3)
+    col1.header = 'S&P 500'
+    col1.metric(label="Daily Average Returns (%)", value=round(sp_daily_avg_ret, 4))
+    col2.metric(label="Daily Standard Deviation (%)", value=round(sp_daily_vol, 4))
+    col3.metric(label="Year-to-Date Returns (%)", value=sp_ytd_ret)
     
     cols = st.columns(len(display_port_stats.columns))
 
@@ -243,10 +250,6 @@ def main():
     sp_daily_avg_ret = sp_returns_stats.mean()*100
     sp_daily_vol = sp_returns_stats.std()*100
     sp_ytd_ret = ((sp_data.iloc[-1] / sp_data.iloc[1]) - 1) * 100
-
-    st.metric(label="Daily Average Returns (%)", value=round(sp_daily_avg_ret, 4))
-    st.metric(label="Daily Standard Deviation (%)", value=round(sp_daily_vol, 4))
-    st.metric(label="Year-to-Date Returns (%)", value=sp_ytd_ret)
 
     #Graph simple return
     #Feb 2024: Removing because graph chaotic
