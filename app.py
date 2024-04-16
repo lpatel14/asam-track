@@ -173,6 +173,7 @@ def main():
     sp = "^GSPC"
     sp_data = yf.download(sp, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
     sp_returns = sp_data.pct_change()
+    st.dataframe(sp_returns)
     
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
     xs_mkt['year'] = xs_mkt.index.year
