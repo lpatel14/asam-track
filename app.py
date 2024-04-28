@@ -184,7 +184,7 @@ def main():
     xs_mkt['xs_mkt'] = xs_mkt['Adj Close'] - (xs_mkt['Close']/100)
     xs_mkt = xs_mkt.loc[:, ['xs_mkt']]
     st.dataframe(xs_mkt)
-    sp_sharpe = ((1+(xs_mkt['xs_mkt'].sum()/82))^(252/82)-1)/xs_mkt['xs_mkt'].std()
+    sp_sharpe = ((1+(xs_mkt['xs_mkt'].sum()/82))**(252/82)-1)/xs_mkt['xs_mkt'].std()
     
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
