@@ -199,12 +199,10 @@ def main():
     #Calculate HML (Russell 3000 Value - Russell 3000 Growth)
     hml_tickers = "^RAV ^RAG"
     hml_data = yf.download(hml_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
-    st.dataframe(hml_data)
     hml_returns = hml_data.pct_change()
     hml_returns['year'] = hml_returns.index.year
     hml_returns = hml_returns[(hml_returns['year'] == datetime.now().year)]
     hml_returns['hml'] = hml_returns['^RAV'] - hml_returns['^RAG']
-    st.dataframe(hml_returns)
     hml_returns = hml_returns.loc[:, ['hml']]
     
     final = pd.merge(xs_mkt, smb_returns, left_index=True, right_index=True)
