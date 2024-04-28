@@ -241,7 +241,10 @@ def main():
     for x in range(0, len(cols)):
         cols[x].subheader(display_port_stats.columns[x])
         for y in range(0, display_port_stats.shape[0]):
-            cols[x].metric(display_port_stats.index[y], round(display_port_stats.iloc[y,x], 3))
+            if display_port_stats.index[y]=="Sharpe Ratio":
+                cols[x].metric(display_port_stats.index[y], round(display_port_stats.iloc[y,x], 5))
+            else:
+                cols[x].metric(display_port_stats.index[y], round(display_port_stats.iloc[y,x], 3))
 
     #Graph total value
     fig1 = go.Figure()
