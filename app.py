@@ -126,8 +126,6 @@ def main():
 
     tot_transactions = transactions.drop(['Date'], axis=1).groupby('Group').sum()['Total']
 
-    st.dataframe(tot_transactions)
-
     merged_df = pd.merge(left=tot_transactions, right=display_Total_Value, how='left', on=['Group'])
 
     result_df = pd.DataFrame(columns=merged_df.columns)
@@ -142,7 +140,7 @@ def main():
 
     simple_return = result_df.drop(columns=['Total'])
     simple_return.set_index('Group', inplace=True)
-
+    st.dataframe(simple_return)
     #Calc simple return
     #temp_return = simple_return.T
 
