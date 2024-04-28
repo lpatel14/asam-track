@@ -140,7 +140,7 @@ def main():
 
     simple_return = result_df.drop(columns=['Total'])
     simple_return.set_index('Group', inplace=True)
-    st.dataframe(simple_return)
+    
     #Calc simple return
     #temp_return = simple_return.T
 
