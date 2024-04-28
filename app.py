@@ -182,8 +182,8 @@ def main():
     xs_mkt['year'] = xs_mkt.index.year
     xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
     st.dataframe(xs_mkt)
-    
     xs_mkt['xs_mkt'] = xs_mkt['Adj Close'] - (xs_mkt['Close']/100)
+    st.dataframe(xs_mkt)
     xs_mkt = xs_mkt.loc[:, ['xs_mkt']]
     sp_sharpe = xs_mkt.mean()/xs_mkt.std()
     
