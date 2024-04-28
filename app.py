@@ -152,7 +152,7 @@ def main():
     risk_free_rate['Close'] = risk_free_rate['Close']/252
     
     return_rf = simple_return.T.merge(pd.DataFrame(risk_free_rate), how='left', left_index=True, right_index=True)
-    
+    st.dataframe(return_rf)
     for group_col in simple_return.T.columns:
         return_rf[group_col] = return_rf[group_col] - return_rf['Close']
     
@@ -234,7 +234,7 @@ def main():
     col1.metric(label="Daily Average Returns (%)", value=round(sp_daily_avg_ret, 4))
     col2.metric(label="Daily Standard Deviation (%)", value=round(sp_daily_vol, 4))
     col3.metric(label="Year-to-Date Returns (%)", value=round(sp_ytd_ret, 4))
-    col4.metric(label="Sharpe Ratio", value=round(sp_sharpe, 4))
+    #col4.metric(label="Sharpe Ratio", value=round(sp_sharpe, 4))
     
     cols = st.columns(len(display_port_stats.columns))
 
