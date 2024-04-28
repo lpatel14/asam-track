@@ -93,7 +93,7 @@ def main():
     data = data_main['Close'].T
     data_adjusted = data_main['Adj Close'].T
     ##Loading all stock data gonna take 3 mins to run 
-    
+    st.dataframe(data_adjusted)
     data = data.T[data.columns>=transactions[transactions.Action=='Buy'].Date.max()].T
     data_adjusted = data_adjusted.T[data_adjusted.columns>=transactions[transactions.Action=='Buy'].Date.max()].T
 
@@ -157,7 +157,7 @@ def main():
         return_rf[group_col] = return_rf[group_col] - return_rf['Close']
     
     return_rf = return_rf.drop(columns=['Close'])
-    st.dataframe(return_rf)
+    
     avg_exc_ret = return_rf.mean()
     avg_exc_ret.name = 'Excess Average Return (%)'
     avg_exc_ret = pd.DataFrame(avg_exc_ret)
