@@ -177,7 +177,7 @@ def main():
     sp_daily_avg_ret = sp_returns_stats.mean()*100
     sp_daily_vol = sp_returns_stats.std()*100
     sp_ytd_ret = ((sp_data.iloc[-1] / sp_data.iloc[1]) - 1) * 100
-    st.dataframe(risk_free_rate)
+    
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
     xs_mkt['year'] = xs_mkt.index.year
     xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
@@ -241,7 +241,7 @@ def main():
     for x in range(0, len(cols)):
         cols[x].subheader(display_port_stats.columns[x])
         for y in range(0, display_port_stats.shape[0]):
-            if display_port_stats.index[y]=="Sharpe Ratio":
+            if display_port_stats.index[y]=="Alpha":
                 cols[x].metric(display_port_stats.index[y], round(display_port_stats.iloc[y,x], 5))
             else:
                 cols[x].metric(display_port_stats.index[y], round(display_port_stats.iloc[y,x], 3))
