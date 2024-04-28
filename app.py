@@ -115,6 +115,7 @@ def main():
     # Apply pct_change() along the rows (now representing dates)
     daily_returns = Total_Value.drop(['Group','Shares'], axis=1)
     daily_returns = daily_returns.set_index('Tickers', inplace=False)
+    st.dataframe(daily_returns)
     daily_returns = daily_returns.T.pct_change()
     
     daily_returns_T = daily_returns.drop(daily_returns.index[0]).T
@@ -183,6 +184,8 @@ def main():
     xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
     xs_mkt['xs_mkt'] = xs_mkt['Adj Close'] - xs_mkt['Close']
     xs_mkt = xs_mkt.loc[:, ['xs_mkt']]
+    sp_xs_ret = xs_mkt.mean()*100
+    sp_sharpe = sp_xs_ret/sp_daily_vol
     
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
@@ -231,10 +234,11 @@ def main():
     display_port_stats = final_port_stats.T
 
     st.header("S&P Metrics")
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     col1.metric(label="Daily Average Returns (%)", value=round(sp_daily_avg_ret, 4))
     col2.metric(label="Daily Standard Deviation (%)", value=round(sp_daily_vol, 4))
     col3.metric(label="Year-to-Date Returns (%)", value=round(sp_ytd_ret, 4))
+    col4.metric(label="Sharpe Ratio", value=round(sp_sharpe, 4))
     
     cols = st.columns(len(display_port_stats.columns))
 
