@@ -123,9 +123,9 @@ def main():
     pos_cols = postions_calc[['Group','Tickers','Shares']].copy()
     daily_returns = pos_cols.merge(daily_returns_T,how='left',left_on=['Tickers'],right_index=True)
     daily_returns.drop_duplicates()
-    st.dataframe(daily_returns)
+    
     tot_transactions = transactions.drop(['Date'], axis=1).groupby('Group').sum()['Total']
-
+    st.dataframe(tot_transactions)
     merged_df = pd.merge(left=tot_transactions, right=display_Total_Value, how='left', on=['Group'])
 
     result_df = pd.DataFrame(columns=merged_df.columns)
