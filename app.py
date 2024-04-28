@@ -185,7 +185,7 @@ def main():
     xs_mkt['xs_mkt'] = xs_mkt['Adj Close'] - xs_mkt['Close']
     xs_mkt = xs_mkt.loc[:, ['xs_mkt']]
     sp_xs_ret = xs_mkt.mean()*100
-    sp_sharpe = sp_xs_ret/sp_daily_vol
+    sp_sharpe = sp_xs_ret
     
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
