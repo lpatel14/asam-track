@@ -183,7 +183,7 @@ def main():
     xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
     xs_mkt['xs_mkt'] = xs_mkt['Adj Close'] - xs_mkt['Close']
     xs_mkt = xs_mkt.loc[:, ['xs_mkt']]
-
+    st.dataframe(xs_mkt)
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
     smb_data = yf.download(smb_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
