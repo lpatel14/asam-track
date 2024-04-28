@@ -234,7 +234,7 @@ def main():
     col1.metric(label="Daily Average Returns (%)", value=round(sp_daily_avg_ret, 4))
     col2.metric(label="Daily Standard Deviation (%)", value=round(sp_daily_vol, 4))
     col3.metric(label="Year-to-Date Returns (%)", value=round(sp_ytd_ret, 4))
-    #col4.metric(label="Sharpe Ratio", value=round(sp_sharpe, 4))
+    col4.metric(label="Sharpe Ratio", value=round(sp_sharpe, 4))
     
     cols = st.columns(len(display_port_stats.columns))
 
