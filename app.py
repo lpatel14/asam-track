@@ -150,7 +150,7 @@ def main():
     risk_free_rate.index = risk_free_rate.index.tz_localize(None)
     risk_free_rate = pd.DataFrame(risk_free_rate)
     risk_free_rate['Close'] = risk_free_rate['Close']/252
-
+    st.dataframe(risk_free_rate)
     return_rf = simple_return.T.merge(pd.DataFrame(risk_free_rate), how='left', left_index=True, right_index=True)
     
     for group_col in simple_return.T.columns:
@@ -161,7 +161,7 @@ def main():
     avg_exc_ret = return_rf.mean()
     avg_exc_ret.name = 'Excess Average Return (%)'
     avg_exc_ret = pd.DataFrame(avg_exc_ret)
-    st.dataframe(avg_exc_ret)
+    
     avg_simple_ret = simple_return.T.mean()
     avg_simple_ret.name = 'Daily Average Return (%)'
 
