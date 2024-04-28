@@ -178,14 +178,14 @@ def main():
     sp_daily_avg_ret = sp_returns_stats.mean()*100
     sp_daily_vol = sp_returns_stats.std()*100
     sp_ytd_ret = ((sp_data.iloc[-1] / sp_data.iloc[1]) - 1) * 100
-    
+    st.dataframe(risk_free_rate)
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
     xs_mkt['year'] = xs_mkt.index.year
     xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
     xs_mkt['xs_mkt'] = xs_mkt['Adj Close'] - xs_mkt['Close']
     xs_mkt = xs_mkt.loc[:, ['xs_mkt']]
     sp_xs_ret = xs_mkt.mean()*100
-    sp_sharpe = sp_xs_ret
+    sp_sharpe = sp_xs_ret/sp_daily_vol
     
     #Calculate SMB (Russell 2000 - Russell 1000)
     smb_tickers = "^RUT ^RUI"
