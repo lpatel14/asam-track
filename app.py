@@ -140,7 +140,7 @@ def main():
 
     simple_return = result_df.drop(columns=['Total'])
     simple_return.set_index('Group', inplace=True)
-    st.dataframe(simple_return)
+    
     #Calc simple return
     #temp_return = simple_return.T
 
@@ -161,7 +161,7 @@ def main():
     avg_exc_ret = return_rf.mean()
     avg_exc_ret.name = 'Excess Average Return (%)'
     avg_exc_ret = pd.DataFrame(avg_exc_ret)
-
+    st.dataframe(avg_exc_ret)
     avg_simple_ret = simple_return.T.mean()
     avg_simple_ret.name = 'Daily Average Return (%)'
 
