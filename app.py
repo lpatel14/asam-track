@@ -192,7 +192,7 @@ def main():
     smb_returns = smb_returns[(smb_returns['year'] == datetime.now().year)]
     smb_returns['smb'] = smb_returns['^RUT'] - smb_returns['^RUI']
     smb_returns = smb_returns.loc[:, ['smb']]
-    
+    st.dataframe(smb_returns)
     #Calculate HML (Russell 3000 Value - Russell 3000 Growth)
     hml_tickers = "^RAV ^RAG"
     hml_data = yf.download(hml_tickers, start=analysis_start_date, end=analysis_end_date_plusone)['Adj Close']
@@ -201,7 +201,7 @@ def main():
     hml_returns = hml_returns[(hml_returns['year'] == datetime.now().year)]
     hml_returns['hml'] = hml_returns['^RAV'] - hml_returns['^RAG']
     hml_returns = hml_returns.loc[:, ['hml']]
-    
+    st.dataframe(hml_returns)
     final = pd.merge(xs_mkt, smb_returns, left_index=True, right_index=True)
     final = pd.merge(final, hml_returns, left_index=True, right_index=True)
     
