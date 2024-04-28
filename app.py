@@ -152,7 +152,7 @@ def main():
     risk_free_rate['Close'] = risk_free_rate['Close']/252
     
     return_rf = simple_return.T.merge(pd.DataFrame(risk_free_rate), how='left', left_index=True, right_index=True)
-    st.dataframe(return_rf)
+    
     for group_col in simple_return.T.columns:
         return_rf[group_col] = return_rf[group_col] - return_rf['Close']
     
@@ -181,6 +181,7 @@ def main():
     xs_mkt = pd.merge(left=sp_returns, right=risk_free_rate, how='left', on='Date')
     xs_mkt['year'] = xs_mkt.index.year
     xs_mkt = xs_mkt[(xs_mkt['year'] == datetime.now().year)]
+    st.dataframe(xs_mkt)
     xs_mkt['xs_mkt'] = xs_mkt['Adj Close'] - (xs_mkt['Close']/100)
     xs_mkt = xs_mkt.loc[:, ['xs_mkt']]
     sp_sharpe = xs_mkt.mean()/xs_mkt.std()
