@@ -140,7 +140,7 @@ def main():
 
     simple_return = result_df.drop(columns=['Total'])
     simple_return.set_index('Group', inplace=True)
-    st.dataframe(simple_return)
+    
     #Calc simple return
     #temp_return = simple_return.T
 
@@ -152,7 +152,7 @@ def main():
     risk_free_rate['Close'] = risk_free_rate['Close']/252
     
     return_rf = simple_return.T.merge(pd.DataFrame(risk_free_rate), how='left', left_index=True, right_index=True)
-    
+    st.dataframe(return_rf)
     for group_col in simple_return.T.columns:
         return_rf[group_col] = return_rf[group_col] - return_rf['Close']
     
