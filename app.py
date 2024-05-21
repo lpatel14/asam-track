@@ -130,7 +130,8 @@ def main():
 
     result_df = pd.DataFrame(columns=merged_df.columns)
     merged_df.reset_index(drop=False, inplace=True)
-    st.dataframe(daily_returns.T)
+    facts = daily_returns.T
+    st.dataframe(facts)
     for index, row in merged_df.iterrows():
         new_row = row.copy()
         new_row[1] = row[1]
