@@ -130,7 +130,7 @@ def main():
 
     result_df = pd.DataFrame(columns=merged_df.columns)
     merged_df.reset_index(drop=False, inplace=True)
-    st.dataframe(daily_returns)
+    
     for index, row in merged_df.iterrows():
         new_row = row.copy()
         new_row[1] = row[1]
@@ -140,7 +140,7 @@ def main():
 
     simple_return = result_df.drop(columns=['Total'])
     simple_return.set_index('Group', inplace=True)
-    
+    st.dataframe(simple_return)
     #Calc simple return
     #temp_return = simple_return.T
 
